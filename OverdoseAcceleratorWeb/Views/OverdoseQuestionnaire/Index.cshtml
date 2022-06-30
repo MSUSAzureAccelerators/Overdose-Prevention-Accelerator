@@ -1,0 +1,334 @@
+﻿@model QuestionnaireModel
+@{
+    ViewData["Title"] = "Overdose Questionnaire";
+}
+
+<div class="container">
+    <div class="row">
+        
+        <!--Page Navigation-->
+        <div class="col-lg-3 control_container">
+            <p>Form Navigation</p>
+            <ul>     
+                <li class="header_hover">
+                    <a onClick="OpenDetails('dPerson')">Personal Info</a>
+                </li>
+                <li class="header_hover">
+                    <a onClick="OpenDetails('dAlc')">Alcohol Info</a>
+                </li>
+                <li class="header_hover">
+                    <a onClick="OpenDetails('dSmoke')">Smoking Info</a>
+                </li>
+                <li class="header_hover">
+                    <a onClick="OpenDetails('dOther')">Other Drugs Info</a>
+                </li>
+                <li class="header_hover">
+                    <a onClick="OpenDetails('dMental')">Mental Health Info</a>
+                </li>
+            </ul>
+        </div>
+
+        <!--Questionnaire-->
+        <div class="col-lg-4 form_container">
+            <h1 class="header_questionnaire" >Opioid Risk Assessment Questionnaire</h1>
+            <div>
+                <form asp-action="Results" method="post">
+                    
+                    <!-- 1: Personal Info-->
+                    <details open id="dPerson">
+                        <summary class="header_dropdown header_hover" >Personal Info</summary>
+                        
+                        <!--Education 1.1-->
+                        <div class="form_item form_item_header">
+                            <p class="form_item_header">Education:</p>
+                            <select asp-for="Questionnaire.Education"
+                                    asp-items="@(new SelectList(Model.EducationLevels, "Key", "Value"))"
+                                    class="form-control">
+                                <option>Please select one</option>
+                            </select>
+                        </div>
+
+                        <!--Age 1.2-->
+                        <div class="form_item">
+                            <p class="form_item_header">Age:</p>
+                        <select asp-for="Questionnaire.Age"
+                                asp-items="@(new SelectList(Model.Ages, "Key", "Value"))"
+                                class="form-control">
+                            <option>Please select one</option>
+                        </select>
+                        </div>
+
+
+                        <!--Gender 1.3-->         
+                        <div class="form_item">
+                            <p class="form_item_header">Gender:</p>
+                            <input id="rMale" type="radio" name="Questionnaire.Gender" value="Male" /> Male
+                            <input id="rFemale" type="radio" name="Questionnaire.Gender" value="Female" /> Female
+                        </div>
+
+                        <!--Follow Up 1.4-->                        
+                        <div class="form_item">
+                            <p class="form_item_header">Have you had alcohol or drug use treatment in the past year?</p>
+                            <input type="radio" name="Questionnaire.HadTreatmentPastYear" id="rTreatYearYes" value="true" /> Yes <input type="radio" value="false" id="rTreatYearNo" name="Questionnaire.HadTreatmentPastYear" /> No 
+                        </div>
+                        
+                        <!--Follow Up 1.5-->
+                        <div class="form_item"> 
+                            <p class="form_item_header">Have you ever had alcohol or drug use treatment in your life?</p>
+                            <input type="radio" name="Questionnaire.HadTreatment" id="rTreatYes" value="true" /> Yes <input type="radio" value="false" id="rNTreatNo" name="Questionnaire.HadTreatment" /> No 
+                        </div>
+                    </details>
+
+                    <!-- 2: Alcohol Use Section-->
+                    <details id="dAlc">
+                        <summary class="header_dropdown header_hover">Alcohol Use</summary>
+                        
+                        <!--Qualifying Question-->
+                        <div class="form_item">
+                            <p class="form_item_header">Have you ever drank alcohol?</p>
+                            <input type="radio" name="Questionnaire.EverAlcohol" id="rAlcYes" value="true" onclick="ShowHideDetails('dAlcX', true)" /> Yes
+                            <input type="radio" value="false" id="rAlcNo" name="Questionnaire.EverAlcohol" onclick="ShowHideDetails('dAlcX',false)" /> No
+                        </div>
+
+                        <!--Follow Up Questions (dependant on previous answers)-->
+                        <details id="dAlcX">
+                            
+                            <!--Accordion Control-->
+                            <summary class="hidden_summary"></summary>
+                            
+                            <!--Follow Up Question 2.1-->
+                            <div class="form_item">
+                                <p class="form_item_header">Age at first use of alcohol:</p>
+                            <input type="number" id="nFirstAlc" asp-for="Questionnaire.AgeFirstAlcohol" value="@Model.Questionnaire.AgeFirstAlcohol" /></div>
+                            
+                            <!--Follow Up Question 2.2-->
+                            <div class="form_item">
+                                <p class="form_item_header">Most recent use of alcohol:</p>
+                            <select asp-for="Questionnaire.RecentAlcohol"
+                                    asp-items="@(new SelectList(Model.RecentAlcohol, "Key", "Value"))"
+                                    class="form-control">
+                                <option>Please select one</option>
+                            </select>
+                            </div>
+
+                            <!--Follow Up Question 2.3-->
+                            <div class="form_item">
+                                <p class="form_item_header">Days using alcohol last year:</p>
+                            <input type="number" id="nDaysUseAlc" asp-for="Questionnaire.DaysAlcoholUseYear" value="@Model.Questionnaire.DaysAlcoholUseYear" />
+                            </div>
+                            
+                            <!--Follow Up Question 2.4-->
+                            <div class="form_item"> 
+                                <p class="form_item_header">Have you ever had 4 or more drinks on the same occasion?</p>
+                                <input type="radio" name="Questionnaire.MoreDrinks" id="rNumbYes" value="true" /> Yes <input type="radio" value="false" id="rNumbNo" name="Questionnaire.MoreDrinks" /> No
+                            </div>
+                        </details>
+                    </details>
+
+                    <!-- 3: Smoking Section-->
+                    <details id="dSmoke">
+                        <summary class="header_dropdown header_hover">Smoking</summary>
+
+                        <!--Qualifying Question 1-->
+                        <div class="form_item"> 
+                            <p class="form_item_header">Have you ever smoked tobacco?</p>
+                            <input type="radio" name="Questionnaire.EverSmoked" id="rCigYes" value="true" onclick="ShowHideDetails('dCig', true)" /> Yes <input type="radio" value="false" id="rCigNo" name="Questionnaire.EverSmoked" onclick="ShowHideDetails('dCig',false)" /> No
+                        </div>
+                        
+                        <!-- 3.1 Cig Subsection-->
+                        <details id="dCig">
+                            <!--Accordion Control-->
+                            <summary class="hidden_summary">Cigarettes</summary>
+                            
+                            <!--Question 3.1.1-->
+                            <div class="form_item">
+                                <p class="form_item_header">Most recent use of cigarettes:</p>
+                            <select asp-for="Questionnaire.RecentCigarettes"
+                                    asp-items="@(new SelectList(Model.RecentCig, "Key", "Value"))"
+                                    class="form-control">
+                                <option>Please select one</option>
+                            </select>
+                            </div>
+                            
+                            <!--Question 3.1.2-->
+                            <div class="form_item">
+                                <p class="form_item_header">Age when individual began smoking daily:</p>
+                            <input type="number" id="nAgeSmoke" asp-for="Questionnaire.AgeFirstDailySmoke" value="@Model.Questionnaire.AgeFirstDailySmoke" />
+                            </div>
+                            
+                            <!--Question 3.1.3-->
+                            <div class="form_item">
+                                <p class="form_item_header">First use of cigarettes prior to 18?</p>
+                            <input type="number" id="nFirstUseSmoke" asp-for="Questionnaire.AgeFirstSmoke" value="@Model.Questionnaire.AgeFirstSmoke" />
+                            </div>
+                            
+                            <!--Question 3.1.4-->
+                            <div class="form_item"> 
+                                <p class="form_item_header">Have you used any tobacco product in the past year?</p>
+                                <input type="radio" name="Questionnaire.TobaccoPastYear" id="rTobacYes" value="true" /> Yes <input type="radio" value="false" id="rTobackNo" name="Questionnaire.TobaccoPastYear" /> No 
+                            </div>
+                        </details>
+
+                        <!--Qualifying Question 2-->
+                        <div class="form_item"> 
+                            <p class="form_item_header">Have you ever smoked cannabis?</p>
+                            <input type="radio" name="Questionnaire.EverCannabis" id="rPotYes" value="true" onclick="ShowHideDetails('dPot', true)" /> Yes <input type="radio" value="false" id="rPotNo" name="Questionnaire.EverCannabis" onclick="ShowHideDetails('dPot',false)" /> No
+                        </div>              
+                        
+                        <!-- 3.2 Pot Subsection-->
+                        <details id="dPot">
+                            <!--Accordion Control-->
+                            <summary class="hidden_summary">Cannabis</summary>
+
+                            <!--Question 3.2.1-->
+                            <div class="form_item">
+                                <p class="form_item_header">Most recent use of cannabis:</p>
+                            <select asp-for="Questionnaire.RecentCannabis"
+                                    asp-items="@(new SelectList(Model.RecentPot, "Key", "Value"))"
+                                    class="form-control">
+                                <option>Please select one</option>
+                            </select>
+                            </div>
+
+                            <!--Question 3.2.2-->
+                            <div class="form_item">
+                                <p class="form_item_header">Days using cannabis in the past year:</p>
+                            <input type="number" id="nUsePot" asp-for="Questionnaire.DaysCannabisPastYear" value="@Model.Questionnaire.DaysCannabisPastYear" />
+                            </div>
+
+                            <!--Question 3.2.3-->
+                            <div class="form_item">
+                                <p class="form_item_header">First use of cannabis prior to 18?</p>
+                            <input type="number" id="nFirstUsePot" asp-for="Questionnaire.FirstCannabisUse" value="@Model.Questionnaire.FirstCannabisUse" />
+                            </div>
+                        </details>
+                    </details>
+
+                    <!-- 4: Other Drugs Section-->
+                    <details id="dOther">
+                        <summary class="header_dropdown header_hover">Other Drugs</summary>
+                        
+                        <!--Qualifying Question 4.1-->
+                        <div class="form_item">
+                            <p class="form_item_header">Have you ever used other drugs?</p>
+                            <input type="radio" name="Questionnaire.EverOther" id="rOtherYes" value="true" onclick="ShowHideDetails('dOtherX', true)" /> Yes
+                            <input type="radio" name="Questionnaire.EverOther" id="rOtherNo" value="false" onclick="ShowHideDetails('dOtherX',false)" /> No
+                        </div>
+
+                        <!--Accordion Control-->
+                        <details id="dOtherX">
+                            <summary class="hidden_summary">Other Drugs Cont.</summary>
+
+                            <!--Question 4.1.1-->
+                            <div class="form_item">
+                                <p class="form_item_header">Most recent use of cocaine:</p>
+                            <select asp-for="Questionnaire.RecentCocaine"
+                                    asp-items="@(new SelectList(Model.RecentCocaine, "Key", "Value"))"
+                                    class="form-control">
+                                <option>Please select one</option>
+                            </select>
+                            </div>
+
+                            <!--Question 4.1.2-->
+                            <div class="form_item">
+                                <p class="form_item_header">Most recent use of crack cocaine:</p>
+                            <select asp-for="Questionnaire.RecentCrack"
+                                    asp-items="@(new SelectList(Model.RecentCrack, "Key", "Value"))"
+                                    class="form-control">
+                                <option>Please select one</option>
+                            </select>
+                            </div>
+
+                            <!--Question 4.1.3-->
+                            <div class="form_item">
+                                <p class="form_item_header">Most recent use of Heroin:</p>
+                            <select asp-for="Questionnaire.RecentHeroin"
+                                    asp-items="@(new SelectList(Model.RecentCocaine, "Key", "Value"))"
+                                    class="form-control">
+                                <option>Please select one</option>
+                            </select>
+                            </div>
+
+                            <!--Question 4.1.4-->
+                            <div class="form_item">
+                                <p class="form_item_header">Most recent use of hallucinogens:</p>
+                            <select asp-for="Questionnaire.RecentHallucinogens"
+                                    asp-items="@(new SelectList(Model.RecentHallucin, "Key", "Value"))"
+                                    class="form-control">
+                                <option>Please select one</option>
+                            </select>
+                            </div>
+
+                            <!--Question 4.1.5-->
+                            <div class="form_item">
+                                <p class="form_item_header">Most recent use of LSD:</p>
+                            <select asp-for="Questionnaire.RecentLSD"
+                                    asp-items="@(new SelectList(Model.RecentLSD, "Key", "Value"))"
+                                    class="form-control">
+                                <option>Please select one</option>
+                            </select>
+                            </div>
+
+                            <!--Question 4.1.6-->
+                            <div class="form_item">
+                                <p class="form_item_header">Most recent use of Ectasy:</p>
+                            <select asp-for="Questionnaire.RecentEctasy"
+                                    asp-items="@(new SelectList(Model.RecentX, "Key", "Value"))"
+                                    class="form-control">
+                                <option>Please select one</option>
+                            </select>
+                            </div>
+
+                            <!--Question 4.1.7-->
+                            <div class="form_item">
+                                <p class="form_item_header">Most recent use of inhalants:</p>
+                            <select asp-for="Questionnaire.RecentInhalents"
+                                    asp-items="@(new SelectList(Model.RecentInhale, "Key", "Value"))"
+                                    class="form-control">
+                                <option>Please select one</option>
+                            </select>
+                            </div>
+
+                            <!--Question 4.1.8-->
+                            <div class="form_item">
+                                <p class="form_item_header">Most recent use of methamphetamine:</p>
+                            <select asp-for="Questionnaire.RecentMeth"
+                                    asp-items="@(new SelectList(Model.RecentMeth, "Key", "Value"))"
+                                    class="form-control">
+                                <option>Please select one</option>
+                            </select>
+                            </div>
+
+                        </details>
+                    </details>
+
+                    <!-- 5: Mental Health Section-->
+                    <details id="dMental">
+                        <summary class="header_dropdown header_hover">Mental Health</summary>
+
+                        <!--Question 5.1-->
+                        <div class="form_item"> 
+                            <p class="form_item_header">Have you felt sad, empty, or depressed for several days or longer?</p>
+                            <input type="radio" name="Questionnaire.Depressed" id="rDepressYes" value="true" /> Yes <input type="radio" value="false" id="rDepressNo" name="Questionnaire.Depressed" /> No
+                        </div>
+
+                        <!--Question 5.2-->
+                        <div class="form_item"> 
+                            <p class="form_item_header">Have you felt discouraged about life for several days or longer?</p>
+                            <input type="radio" name="Questionnaire.Discouraged" id="rDiscYes" value="true" /> Yes <input type="radio" value="false" id="rDiscNo" name="Questionnaire.Discouraged" /> No
+                        </div>
+
+                        <!--Question 5.3-->
+                        <div class="form_item"> 
+                            <p class="form_item_header">Have you ever been arrested and booked in the criminal justice system?</p>
+                            <input type="radio" name="Questionnaire.Arrested" id="rArrestYes" value="true" /> Yes <input type="radio" value="false" id="rArrestNo" name="Questionnaire.Arrested" /> No
+                        </div>
+                    </details>
+
+                    <!--Submit Button-->
+                    <button type="submit" class="form_submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

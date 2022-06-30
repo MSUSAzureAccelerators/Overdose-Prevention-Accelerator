@@ -1,0 +1,91 @@
+﻿@model OverdoseResult
+
+@{
+    ViewData["Title"] = "Overdose Results";
+}
+
+<link rel="stylesheet" href="~/css/Results.css" asp-append-version="true" />
+
+<div class="results_container">
+    <div id="PageTitle">
+        <h1>Opiod Misuse Risk Report</h1>
+    </div>
+
+      <!--Probability of Misuse-->
+      <div class="grid_item" id="ProbMis">
+        <h3 class="item_header">Probability of Misuse</h3>
+        <div class="item_element_radial">
+          <div id="PMradialchart"></div>
+        </div>
+        <p id="PMDescription">The probability that the person taking the survey will overdose on opioids in the next year</p>
+      </div>
+  
+      <!--Risk Percentile-->
+      <div class="grid_item" id="RiskPerc">
+        <h3 class="item_header">Risk Percentile</h3>
+        <div class="item_element_radial">
+          <div id="RPradialchart"></div>
+        </div>
+        <p id="RPDescription">The percentile of the population that the individual’s risk score falls in</p>
+      </div>
+
+    <!--Barchart-->
+    <div class="grid_item" id="Barchart">
+        <h3 class="item_header">Contributing Factors</h3>
+        <div class="item_element_bar">
+            <div id="barchart"></div>
+        </div>
+        <p id="SHAPDescription">A Contributing Factors value shows how a specific feature increases or decreases the individual’s likelihood of overdosing on opioids in the next year. If @Model.features.Keys.ToArray().First() has a Contributing Factors value of <b>@Model.features.Values.ToArray().First()</b>, that means that @Model.features.Keys.ToArray().First() increases an individual's likelihood of overdosing on opioids in the next year by <b>@Model.features.Values.ToArray().First()%</b></p>
+    </div>
+
+    <!--Response Table-->
+    <div class="grid_item" id="ResponseTable">
+        <!--delete "open" below if we want to have results closed on page load-->
+        <details open>
+            <summary class="item_header header_dropdown" id="item_table_header">Question Table</summary>
+            <table class="item_table">
+                <tbody>
+                    <tr>
+                        <th>Question</th>
+
+                        <th>Change in Misuse Likelihood</th>
+       
+                    </tr>
+                    @foreach(var d in @Model.features)
+                    {
+                    <tr>
+                        <td>@d.Key</td>
+                        <td>@d.Value</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </details>
+    </div>
+</div>
+
+<script>
+    let graphValuesPos = @Html.Raw(Json.Serialize(Model.features.Values.ToList())); 
+    for (let v in graphValuesPos) { 
+        if (graphValuesPos[v].includes('-'))
+            {
+                graphValuesPos[v] = "0.0";
+            }
+    }
+    
+    var graphValuesNeg = @Html.Raw(Json.Serialize(Model.features.Values.ToList())); 
+    for (let v in graphValuesNeg) { 
+        if (!graphValuesNeg[v].includes('-'))
+            {
+                graphValuesNeg[v] = "0.0";
+            }
+    }
+    var graphKeys =  @Html.Raw(Json.Serialize(Model.features.Keys.ToList()));
+    var odPercent = [@Model.percentile]; 
+    var odScore = [@Model.score]; 
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="~/js/Results.js" type="text/javascript"></script> 
+
+

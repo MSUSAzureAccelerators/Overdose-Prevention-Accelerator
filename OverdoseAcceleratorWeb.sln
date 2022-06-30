@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverdoseAcceleratorWeb", "OverdoseAcceleratorWeb\OverdoseAcceleratorWeb.csproj", "{14DA5224-3975-49D0-9F08-08D5A2064606}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{14DA5224-3975-49D0-9F08-08D5A2064606}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14DA5224-3975-49D0-9F08-08D5A2064606}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14DA5224-3975-49D0-9F08-08D5A2064606}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14DA5224-3975-49D0-9F08-08D5A2064606}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1F6666FC-AAD0-4F7B-A116-3EC9769D757B}
+	EndGlobalSection
+EndGlobal

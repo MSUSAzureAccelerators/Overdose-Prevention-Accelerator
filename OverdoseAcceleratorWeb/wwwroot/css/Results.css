@@ -1,0 +1,256 @@
+﻿@media (max-width: 480px) {
+    #Barchart {
+        grid-column: 2;
+        height: fit-content;
+    }
+
+    .item_element_bar {
+        height: fit-content;
+    }
+}
+
+@media (max-width: 760px) {
+    .results_container {
+        grid-template-columns: auto 90% auto;
+    }
+
+    #PageTitle {
+        grid-column: 2;
+    }
+
+    #ProbMis {
+        grid-column: 2;
+        aspect-ratio: 7/5;
+    }
+
+    #RiskPerc {
+        grid-column: 2;
+        aspect-ratio: 7/5;
+    }
+
+    #Barchart {
+        grid-column: 2;
+        aspect-ratio: 7/5;
+    }
+
+    #ResponseTable {
+        grid-column: 2;
+        height: fit-content;
+    }
+
+    #PMDescription,
+    #RPDescription,
+    #SHAPDescription {
+        opacity: 1;
+        filter: grayscale(0);
+    }
+
+    .item_element_bar {
+        height: fit-content;
+    }
+}
+
+@media (min-width: 761px) {
+    .results_container {
+        grid-template-columns: auto 15% 15% 15% 15% 15% 15% auto;
+    }
+
+    #PageTitle {
+        grid-column: 2 / span 6;
+    }
+    
+    #ProbMis {
+        grid-column: 2 / span 3;
+        aspect-ratio: 7/5;
+    }
+
+    #RiskPerc {
+        grid-column: 5 / span 3;
+        aspect-ratio: 7/5;
+    }
+
+    #Barchart {
+        grid-column: 2 / span 6;
+        aspect-ratio: 7/5;
+    }
+
+    #ResponseTable {
+        grid-column: 2 / span 6;
+        height: fit-content;
+    }
+
+    #PMDescription,
+    #RPDescription,
+    #SHAPDescription {
+        opacity: .25;
+        filter: grayscale(1);
+    }
+
+    #ProbMis:hover #PMDescription,
+    #RiskPerc:hover #RPDescription,
+    #Barchart:hover #SHAPDescription {
+        opacity: 1;
+        filter: grayscale(0);
+    }
+
+    .item_element_bar {
+        height: 100%;
+    }
+}
+
+.results_container {
+    width: 100%;
+    height: auto;
+    background-color: var(--white);
+    margin: 0px auto;
+    padding: 0px;
+    display: grid;
+    grid-auto-rows: auto;
+    gap: 8px;
+    justify-items: center;
+}
+
+#PageTitle {
+    width: 100%;
+    height: auto;
+    background-color: var(--primary-blue);
+    color: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-large);
+    text-align: center;
+    padding: 12px 0px;
+}
+
+.grid_item {
+    width: 100%;
+    background-color: var(--white);
+    border: 1px solid var(--lt-pale-blue);
+    box-shadow: var(--shadow-large);
+    border-radius: 12px;
+}
+
+    .grid_item ul {
+        text-align: center;
+        list-style-type: none;
+        padding: 0px;
+    }
+
+    .grid_item li a {
+        padding: 4px 0px;
+        font-size: 1.25rem;
+        opacity: 1;
+        text-decoration: none;
+    }
+
+    .grid_item li a:hover {
+        opacity: .5;
+    }
+
+.item_header {
+    width: 100%;
+    height: auto;
+    background-color: var(--lt-pale-blue);
+    color: var(--text);
+    border-radius: 12px 12px 0px 0px;
+    text-align: center;
+    padding: 8px 0px;
+    margin: 0px;
+}
+
+.item_element_radial,
+.item_element_bar {
+    width: 100%;
+    border-radius: 0px 0px 12px 12px;
+    text-align: center;
+    padding: 8px 0px;
+    margin: 0px;
+}
+
+.item_element_radial {
+    height: 100%;
+}
+
+.item_percent {
+    color: none;
+    font-size: 3rem;
+}
+
+#PMDescription,
+#RPDescription,
+#SHAPDescription {
+    text-align: center;
+    max-width: 80%;
+    margin: 0px auto 12px auto;
+    padding: 8px 16px;
+    background-color: #FFD073;
+    color: #363a4a;
+    box-shadow: var(--shadow-small);
+    border-radius: 8px;
+    transition: opacity ease-out 300ms;
+    font-size: 14px;
+}
+
+/*Response Table*/
+#ResponseTable {
+    margin-bottom: 80px;
+}
+
+.item_table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#item_table_header {
+    font-size: 1.75em;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.item_table td, th {
+    border: 1px solid var(--lt-pale-blue);
+    color: var(--text);
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: var(--lt-pale-blue);
+}
+
+/*Charts*/
+#PMradialchart {
+    max-width: auto;
+    margin: 0px auto;
+}
+
+#RPradialchart {
+    max-width: auto;
+    margin: 0px auto;
+}
+
+#barchart {
+    max-width: auto;
+    margin: 0px auto;
+}
+
+.tooltip_box {
+    position: relative;
+    background: var(--white);
+    border: 1px solid var(--lt-pale-blue);
+    border-radius: 4px;
+    box-shadow: var(--shadow-small);
+}
+
+#RPradialchart .apexcharts-tooltip,
+PMradialchart .apexcharts-tooltip {
+    color: var(--text);
+    transform: translateX(10px) translateY(10px);
+    overflow: visible !important;
+    white-space: normal !important;
+}
+
+    #RPradialchart .apexcharts-tooltip span,
+    #PMradialchart .apexcharts-tooltip span {
+        padding: 5px 10px;
+        display: inline-block;
+    }

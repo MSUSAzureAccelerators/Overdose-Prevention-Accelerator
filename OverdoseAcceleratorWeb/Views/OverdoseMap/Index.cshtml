@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Overdose Map";
+}
+
+@section Styles {
+    <!-- Overdose Map -->
+    <link rel="stylesheet" href="~/css/OverPassLayer.css" />
+    <link rel="stylesheet" href="~/css/overdoses.css">
+}
+
+@*Initial map size can only be read from inline styles*@
+@*https://github.com/rowanwins/leaflet-easyPrint/issues/93*@
+<div id="map"></div>
+<div class="description">
+    <h3>Social Determinant Impact Map</h3>
+    <p>
+       <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+    </p>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/Zip_Codes_Simplified.js"></script>
+    <script src="~/js/OverPassLayer.bundle.js"></script>
+    <script src="~/js/spin.min.js"></script>
+    <script src="~/js/leaflet.spin.min.js"></script>
+    <script src="~/js/overdoses.js"></script>    
+}
