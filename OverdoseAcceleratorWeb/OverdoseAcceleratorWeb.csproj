@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\overdoses.css" />
-    <None Include="wwwroot\js\overdoses.js" />
-    <None Include="wwwroot\js\Zip_Codes_Simplified.js" />
+    <None Include="wwwroot\*" />
   </ItemGroup>
 
   <ItemGroup>

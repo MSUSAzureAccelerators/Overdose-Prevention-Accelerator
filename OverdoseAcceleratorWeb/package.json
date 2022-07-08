@@ -1,9 +1,0 @@
-{
-  "version": "1.0.0",
-  "name": "asp.net",
-  "private": true,
-  "devDependencies": {},
-  "dependencies": {
-    "leaflet-overpass-layer": "^2.9.0"
-  }
-}
