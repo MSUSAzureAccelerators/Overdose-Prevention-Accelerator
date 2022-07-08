@@ -138,14 +138,14 @@ opl.addTo(map);
 
 // Adding Some Color
 function getColor(d) {
-    return d > 250 ? '#800026' :
-        d > 125 ? '#BD0026' :
-            d > 50 ? '#E31A1C' :
-                d > 25 ? '#FC4E2A' :
-                    d > 15 ? '#FD8D3C' :
-                        d > 5 ? '#FEB24C' :
-                            d > 1 ? '#FED976' :
-                                '#FFEDA0';
+    return d > 250 ? '#65001e' :
+        d > 125 ? '#772245' :
+            d > 50 ? '#843a60' :
+                d > 25 ? '#8b476e' :
+                    d > 15 ? '#985e88' :
+                        d > 5 ? '#a677a5' :
+                            d > 1 ? '#b999cc' :
+                                '#c8b4eb';
 }
 
 function style(feature) {

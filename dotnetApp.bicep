@@ -55,7 +55,7 @@ resource appService 'Microsoft.Web/sites@2020-12-01' = {
   }
 }
 
-resource siteName_web 'Microsoft.Web/sites/sourcecontrols@2020-12-01' = {
+resource appSource 'Microsoft.Web/sites/sourcecontrols@2020-12-01' = {
   parent: appService
   name: 'web'
   location: location
@@ -77,7 +77,7 @@ resource appServiceLogging 'Microsoft.Web/sites/config@2021-03-01' = {
   }
   dependsOn: [
     appServiceSiteExtension
-    siteName_web
+    appSource
   ]
 }
 

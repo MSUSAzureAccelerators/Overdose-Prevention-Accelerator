@@ -220,7 +220,7 @@
 
 .card:active {
     cursor: pointer;
-    border: 4px solid var(--dk-primary-mustard);
+    border: 4px solid var(--lt-primary-mustard);
     background-color: var(--white);
 }
 

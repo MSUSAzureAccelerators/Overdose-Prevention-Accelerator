@@ -336,11 +336,11 @@ chart.render();
 var options = {
     //2 series allows for the legend + color to show up
     series: [{
-            name: 'Positive',
+            name: 'Increase in change of likelihood',
             data: graphValuesPos
         },
         {
-            name: 'Negative',
+            name: 'Decrease in change of likelihood',
             data: graphValuesNeg
         },
 
@@ -356,7 +356,7 @@ var options = {
         height: "100%",
         stacked: true
     },
-    colors: ['#0047B3', '#FFD073'],
+    colors: ['#0047B3', '#c8b4eb'],
     plotOptions: {
         bar: {
             horizontal: true,
