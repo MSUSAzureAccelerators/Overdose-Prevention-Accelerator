@@ -10,6 +10,12 @@ param location string = resourceGroup().location
 // @description('Location for Application Insights')
 // param appInsightsLocation string
 
+@description('Which Pricing tier our App Service Plan to')
+param skuName string = 'S1'
+
+@description('How many instances of our app service will be scaled out to')
+param skuCapacity int = 1
+
 @description('The language worker runtime to load in the function app.')
 param runtime string = 'python'
 
@@ -20,9 +26,9 @@ param repoURL string = 'https://github.com/nsmaassel/Overdose-Prevention-Solutio
 param branch string = 'main'
 
 var functionAppName = appName
-var hostingPlanName = appName
+var appServicePlanName = appName
 // var applicationInsightsName = appName
-var storageAccountName = 'oaads${uniqueString(resourceGroup().id)}'
+var storageAccountName = 'ds${uniqueString(resourceGroup().id)}'
 var functionWorkerRuntime = runtime
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
@@ -34,15 +40,12 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
   kind: 'Storage'
 }
 
-resource hostingPlan 'Microsoft.Web/serverfarms@2021-03-01' = {
-  name: hostingPlanName
+resource appServicePlan 'Microsoft.Web/serverfarms@2021-03-01' = {
+  name: appServicePlanName
   location: location
   sku: {
-    name: 'Y1'
-    tier: 'Dynamic'
-    size: 'Y1'
-    family: 'Y'
-    capacity: 0
+    name: skuName
+    capacity: skuCapacity
   }
   kind: 'functionapp,linux'
   properties: {
@@ -66,8 +69,12 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
   identity: {
     type: 'SystemAssigned'
   }
+  tags: {
+    displayName: 'Function App'
+    ProjectName: appName
+  }
   properties: {
-    serverFarmId: hostingPlan.id
+    serverFarmId: appServicePlan.id
     siteConfig: {
       appSettings: [
         {
@@ -134,7 +141,7 @@ resource siteName_config 'Microsoft.Web/sites/config@2021-03-01' = {
   parent: functionApp
   name: 'appsettings'
   properties: {
-    PROJECT: 'function_app_backend\\function_app_backend.csproj'
+    PROJECT: 'Individual-Risk-Profile'
     // clientUrl: 'http://${functionAppName}.azurewebsites.net/api'
     netFrameworkVersion: 'v6.0'
   }

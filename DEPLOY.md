@@ -12,15 +12,16 @@ https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/quickstart-c
 # Using the deploy button
 `https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2Fmain.bicep`
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2Fmain.bicep)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2Fmain.json)
 
+# Building the ARM template
 Create resource group
 az group create --name "OOA-rg" --location "westus"
 
 Create deployment group and deploy via ARM template
 <!-- Resource Group deploy -->
 `az deployment group create --name "NickOOADeployment" --resource-group "Nick-OOA-rg" --template-file "./main.bicep"`
-az deployment sub create --name "OOADeployment" --resource-group "OOA-rg" --template-file "./main.bicep"
+az deployment sub create --name "OOADeployment" --template-file "./main.bicep" --parameters resourceGroupLocation="westus"
 
 <!-- Subscription deploy -->
 <!--    Deploy everything at once -->
