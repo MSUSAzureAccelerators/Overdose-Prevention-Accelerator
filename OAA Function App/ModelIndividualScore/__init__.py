@@ -25,10 +25,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     abs_container_name='individual'
 
     try:
-        connection_string = 'DefaultEndpointsProtocol=https;AccountName=oaadatastore;AccountKey=4S8rDPs3fIYxed9/FSDlo9NhvdUx6QkBA43FNKbAFTpR7B1THkjjHctB/HjIrpvzQNbUPlg5apVEHzDuGcdlJA==;EndpointSuffix=core.windows.net'
-        blob_service_client = BlobServiceClient.from_connection_string(connection_string)
-        abs_container_client = blob_service_client.get_container_client('individual')
-        '''# Set variables from appsettings configurations/Environment Variables.
         key_vault_name = 'oaavault'
         key_vault_Uri = f"https://{key_vault_name}.vault.azure.net"
         blob_secret_name = 'oaadatastoresecret'
@@ -44,7 +40,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             credential = az_credential
         )
 
-        abs_container_client = abs_service_client.get_container_client(container=abs_container_name)'''
+        abs_container_client = abs_service_client.get_container_client(container=abs_container_name)
 
     except Exception as e:
         logging.info(e)
