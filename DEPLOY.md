@@ -8,9 +8,12 @@ To start, clone or download this repository and navigate to the project's root d
 ## ARM template deployment
 
 # Using the deploy button
-`https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2Fmain.bicep`
+Whenever the .bicep files are modified, the main.json file needs to be updated by running:
+`az bicep build --file main.bicep --outdir .`
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2Fmain.bicep)
+This is because the Deploy to Azure button does not yet support .bicep files.
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2Fmain.json)
 
 # Building the ARM template
 Create resource group

@@ -5,29 +5,45 @@
     "_generator": {
       "name": "bicep",
       "version": "0.8.9.13224",
-      "templateHash": "409822994762186479"
+      "templateHash": "4206665545471605052"
+    }
+  },
+  "parameters": {
+    "resourceGroupName": {
+      "type": "string",
+      "defaultValue": "OOA-rg",
+      "metadata": {
+        "description": "Name for the resource group."
+      }
+    },
+    "resourceGroupLocation": {
+      "type": "string",
+      "defaultValue": "westus",
+      "metadata": {
+        "description": "Location for all resources."
+      }
     }
   },
   "variables": {
-    "resourceGroupName": "OOA-rg",
-    "siteName": "[format('ooa-{0}', uniqueString(subscriptionResourceId('Microsoft.Resources/resourceGroups', variables('resourceGroupName'))))]"
+    "siteName": "[format('ooa-{0}', uniqueString(subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))))]"
   },
   "resources": [
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2021-04-01",
+      "name": "[parameters('resourceGroupName')]",
+      "location": "[parameters('resourceGroupLocation')]"
+    },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2020-10-01",
       "name": "[format('{0}-frontend', variables('siteName'))]",
-      "resourceGroup": "[variables('resourceGroupName')]",
+      "resourceGroup": "[parameters('resourceGroupName')]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
         },
         "mode": "Incremental",
-        "parameters": {
-          "location": {
-            "value": "[reference(subscriptionResourceId('Microsoft.Resources/resourceGroups', variables('resourceGroupName')), '2021-04-01', 'full').location]"
-          }
-        },
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
           "contentVersion": "1.0.0.0",
@@ -35,7 +51,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.8.9.13224",
-              "templateHash": "13369344623606225857"
+              "templateHash": "15586670881004589243"
             }
           },
           "parameters": {
@@ -84,9 +100,7 @@
           },
           "variables": {
             "appServicePlanName": "[format('asp-{0}', parameters('appName'))]",
-            "webSiteName": "[toLower(format('wapp-{0}', parameters('appName')))]",
-            "appInsightName": "[toLower(format('appi-{0}', parameters('appName')))]",
-            "logAnalyticsName": "[toLower(format('la-{0}', parameters('appName')))]"
+            "webSiteName": "[toLower(format('wapp-{0}', parameters('appName')))]"
           },
           "resources": [
             {
@@ -119,8 +133,7 @@
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]"
               },
               "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
-                "[resourceId('Microsoft.OperationalInsights/workspaces', variables('logAnalyticsName'))]"
+                "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]"
               ]
             },
             {
@@ -134,7 +147,8 @@
                 "isManualIntegration": true
               },
               "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]"
+                "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]",
+                "[resourceId('Microsoft.Web/sites/config', variables('webSiteName'), 'appsettings')]"
               ]
             },
             {
@@ -142,112 +156,31 @@
               "apiVersion": "2021-03-01",
               "name": "[format('{0}/{1}', variables('webSiteName'), 'appsettings')]",
               "properties": {
-                "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(resourceId('Microsoft.Insights/components', variables('appInsightName'))).InstrumentationKey]",
-                "PROJECT": "OverdoseAcceleratorWeb\\OverdoseAcceleratorWeb.csproj",
+                "PROJECT": "Overdose-Accelerator-Web\\OverdoseAcceleratorWeb.csproj",
                 "clientUrl": "[format('http://{0}.azurewebsites.net', parameters('appName'))]",
                 "netFrameworkVersion": "v6.0"
               },
               "dependsOn": [
-                "[resourceId('Microsoft.Insights/components', variables('appInsightName'))]",
-                "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]",
-                "[resourceId('Microsoft.Web/sites/siteextensions', variables('webSiteName'), 'Microsoft.ApplicationInsights.AzureWebSites')]",
-                "[resourceId('Microsoft.Web/sites/sourcecontrols', variables('webSiteName'), 'web')]"
-              ]
-            },
-            {
-              "type": "Microsoft.Web/sites/siteextensions",
-              "apiVersion": "2020-06-01",
-              "name": "[format('{0}/{1}', variables('webSiteName'), 'Microsoft.ApplicationInsights.AzureWebSites')]",
-              "dependsOn": [
-                "[resourceId('Microsoft.Insights/components', variables('appInsightName'))]",
                 "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]"
               ]
-            },
-            {
-              "type": "Microsoft.Web/sites/config",
-              "apiVersion": "2020-06-01",
-              "name": "[format('{0}/{1}', variables('webSiteName'), 'logs')]",
-              "properties": {
-                "applicationLogs": {
-                  "fileSystem": {
-                    "level": "Warning"
-                  }
-                },
-                "httpLogs": {
-                  "fileSystem": {
-                    "retentionInMb": 40,
-                    "enabled": true
-                  }
-                },
-                "failedRequestsTracing": {
-                  "enabled": true
-                },
-                "detailedErrorMessages": {
-                  "enabled": true
-                }
-              },
-              "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]"
-              ]
-            },
-            {
-              "type": "Microsoft.Insights/components",
-              "apiVersion": "2020-02-02",
-              "name": "[variables('appInsightName')]",
-              "location": "[parameters('location')]",
-              "kind": "string",
-              "tags": {
-                "displayName": "AppInsight",
-                "ProjectName": "[parameters('appName')]"
-              },
-              "properties": {
-                "Application_Type": "web",
-                "WorkspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', variables('logAnalyticsName'))]"
-              },
-              "dependsOn": [
-                "[resourceId('Microsoft.OperationalInsights/workspaces', variables('logAnalyticsName'))]"
-              ]
-            },
-            {
-              "type": "Microsoft.OperationalInsights/workspaces",
-              "apiVersion": "2020-08-01",
-              "name": "[variables('logAnalyticsName')]",
-              "location": "[parameters('location')]",
-              "tags": {
-                "displayName": "Log Analytics",
-                "ProjectName": "[parameters('appName')]"
-              },
-              "properties": {
-                "sku": {
-                  "name": "PerGB2018"
-                },
-                "retentionInDays": 120,
-                "features": {
-                  "searchVersion": 1,
-                  "legacy": 0,
-                  "enableLogAccessUsingOnlyResourcePermissions": true
-                }
-              }
             }
           ]
         }
-      }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
+      ]
     },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2020-10-01",
       "name": "[format('{0}-functionApp', variables('siteName'))]",
-      "resourceGroup": "[variables('resourceGroupName')]",
+      "resourceGroup": "[parameters('resourceGroupName')]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
         },
         "mode": "Incremental",
-        "parameters": {
-          "location": {
-            "value": "[reference(subscriptionResourceId('Microsoft.Resources/resourceGroups', variables('resourceGroupName')), '2021-04-01', 'full').location]"
-          }
-        },
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
           "contentVersion": "1.0.0.0",
@@ -255,7 +188,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.8.9.13224",
-              "templateHash": "13887749618525198348"
+              "templateHash": "11226651496401853026"
             }
           },
           "parameters": {
@@ -278,6 +211,20 @@
               "defaultValue": "[resourceGroup().location]",
               "metadata": {
                 "description": "Location for all resources."
+              }
+            },
+            "skuName": {
+              "type": "string",
+              "defaultValue": "S1",
+              "metadata": {
+                "description": "Which Pricing tier our App Service Plan to"
+              }
+            },
+            "skuCapacity": {
+              "type": "int",
+              "defaultValue": 1,
+              "metadata": {
+                "description": "How many instances of our app service will be scaled out to"
               }
             },
             "runtime": {
@@ -304,8 +251,8 @@
           },
           "variables": {
             "functionAppName": "[parameters('appName')]",
-            "hostingPlanName": "[parameters('appName')]",
-            "storageAccountName": "[format('oaads{0}', uniqueString(resourceGroup().id))]",
+            "appServicePlanName": "[parameters('appName')]",
+            "storageAccountName": "[format('ds{0}', uniqueString(resourceGroup().id))]",
             "functionWorkerRuntime": "[parameters('runtime')]"
           },
           "resources": [
@@ -322,14 +269,11 @@
             {
               "type": "Microsoft.Web/serverfarms",
               "apiVersion": "2021-03-01",
-              "name": "[variables('hostingPlanName')]",
+              "name": "[variables('appServicePlanName')]",
               "location": "[parameters('location')]",
               "sku": {
-                "name": "Y1",
-                "tier": "Dynamic",
-                "size": "Y1",
-                "family": "Y",
-                "capacity": 0
+                "name": "[parameters('skuName')]",
+                "capacity": "[parameters('skuCapacity')]"
               },
               "kind": "functionapp,linux",
               "properties": {
@@ -354,8 +298,12 @@
               "identity": {
                 "type": "SystemAssigned"
               },
+              "tags": {
+                "displayName": "Function App",
+                "ProjectName": "[parameters('appName')]"
+              },
               "properties": {
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
                 "siteConfig": {
                   "appSettings": [
                     {
@@ -389,7 +337,7 @@
                 "httpsOnly": true
               },
               "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+                "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
               ]
             },
@@ -413,8 +361,7 @@
               "apiVersion": "2021-03-01",
               "name": "[format('{0}/{1}', variables('functionAppName'), 'appsettings')]",
               "properties": {
-                "PROJECT": "function_app_backend\\function_app_backend.csproj",
-                "netFrameworkVersion": "v6.0"
+                "PROJECT": "Individual-Risk-Profile"
               },
               "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', variables('functionAppName'))]"
@@ -422,7 +369,10 @@
             }
           ]
         }
-      }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('resourceGroupName'))]"
+      ]
     }
   ]
 }
