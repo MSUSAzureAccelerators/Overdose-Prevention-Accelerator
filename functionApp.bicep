@@ -143,6 +143,6 @@ resource siteName_config 'Microsoft.Web/sites/config@2021-03-01' = {
   properties: {
     PROJECT: 'Individual-Risk-Profile'
     // clientUrl: 'http://${functionAppName}.azurewebsites.net/api'
-    netFrameworkVersion: 'v6.0'
+    // netFrameworkVersion: 'v6.0'
   }
 }

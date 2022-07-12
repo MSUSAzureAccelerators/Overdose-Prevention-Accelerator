@@ -1,5 +1,7 @@
 // References:
-// https://github.com/Azure/azure-quickstart-templates/blob/master/quickstarts/microsoft.web/web-app-loganalytics/main.bicep#L93
+// https://github.com/Azure/azure-quickstart-templates/blob/master/quickstarts/microsoft.web/web-app-loganalytics/main.bicep
+
+// Kudu: https://docs.microsoft.com/en-us/azure/app-service/resources-kudu
 
 @description('Name that will be used to build associated artifacts')
 param appName string = 'OOA-${uniqueString(resourceGroup().id)}'
@@ -21,8 +23,8 @@ param branch string = 'main'
 
 var appServicePlanName = 'asp-${appName}'
 var webSiteName = toLower('wapp-${appName}')
-var appInsightName = toLower('appi-${appName}')
-var logAnalyticsName = toLower('la-${appName}')
+// var appInsightName = toLower('appi-${appName}')
+// var logAnalyticsName = toLower('la-${appName}')
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2020-12-01' = {
   name: appServicePlanName
@@ -47,9 +49,9 @@ resource appService 'Microsoft.Web/sites@2020-12-01' = {
     displayName: 'Website'
     ProjectName: appName
   }
-  dependsOn: [
-    logAnalyticsWorkspace
-  ]
+  // dependsOn: [
+  //   logAnalyticsWorkspace
+  // ]
   properties: {
     serverFarmId: appServicePlan.id
   }
@@ -64,85 +66,88 @@ resource appSource 'Microsoft.Web/sites/sourcecontrols@2020-12-01' = {
     branch: branch
     isManualIntegration: true
   }
+  dependsOn: [
+    appServiceLogging
+  ]
 }
 
 resource appServiceLogging 'Microsoft.Web/sites/config@2021-03-01' = {
   parent: appService
   name: 'appsettings'
   properties: {
-    APPINSIGHTS_INSTRUMENTATIONKEY: appInsights.properties.InstrumentationKey
+    // APPINSIGHTS_INSTRUMENTATIONKEY: appInsights.properties.InstrumentationKey
     PROJECT: 'Overdose-Accelerator-Web\\OverdoseAcceleratorWeb.csproj'
     clientUrl: 'http://${appName}.azurewebsites.net'
     netFrameworkVersion: 'v6.0'
   }
-  dependsOn: [
-    appServiceSiteExtension
-    appSource
-  ]
+  // dependsOn: [
+  //   appServiceSiteExtension
+  //   appSource
+  // ]
 }
 
-resource appServiceSiteExtension 'Microsoft.Web/sites/siteextensions@2020-06-01' = {
-  parent: appService
-  name: 'Microsoft.ApplicationInsights.AzureWebSites'
-  dependsOn: [
-    appInsights
-  ]
-}
+// resource appServiceSiteExtension 'Microsoft.Web/sites/siteextensions@2020-06-01' = {
+//   parent: appService
+//   name: 'Microsoft.ApplicationInsights.AzureWebSites'
+//   dependsOn: [
+//     appInsights
+//   ]
+// }
 
-resource appServiceAppSettings 'Microsoft.Web/sites/config@2020-06-01' = {
-  parent: appService
-  name: 'logs'
-  properties: {
-    applicationLogs: {
-      fileSystem: {
-        level: 'Warning'
-      }
-    }
-    httpLogs: {
-      fileSystem: {
-        retentionInMb: 40
-        enabled: true
-      }
-    }
-    failedRequestsTracing: {
-      enabled: true
-    }
-    detailedErrorMessages: {
-      enabled: true
-    }
-  }
-}
+// resource appServiceAppSettings 'Microsoft.Web/sites/config@2020-06-01' = {
+//   parent: appService
+//   name: 'logs'
+//   properties: {
+//     applicationLogs: {
+//       fileSystem: {
+//         level: 'Warning'
+//       }
+//     }
+//     httpLogs: {
+//       fileSystem: {
+//         retentionInMb: 40
+//         enabled: true
+//       }
+//     }
+//     failedRequestsTracing: {
+//       enabled: true
+//     }
+//     detailedErrorMessages: {
+//       enabled: true
+//     }
+//   }
+// }
 
-resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
-  name: appInsightName
-  location: location
-  kind: 'string'
-  tags: {
-    displayName: 'AppInsight'
-    ProjectName: appName
-  }
-  properties: {
-    Application_Type: 'web'
-    WorkspaceResourceId: logAnalyticsWorkspace.id
-  }
-}
+// resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
+//   name: appInsightName
+//   location: location
+//   kind: 'string'
+//   tags: {
+//     displayName: 'AppInsight'
+//     ProjectName: appName
+//   }
+//   properties: {
+//     Application_Type: 'web'
+//     WorkspaceResourceId: logAnalyticsWorkspace.id
+//   }
+// }
 
-resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-08-01' = {
-  name: logAnalyticsName
-  location: location
-  tags: {
-    displayName: 'Log Analytics'
-    ProjectName: appName
-  }
-  properties: {
-    sku: {
-      name: 'PerGB2018'
-    }
-    retentionInDays: 120
-    features: {
-      searchVersion: 1
-      legacy: 0
-      enableLogAccessUsingOnlyResourcePermissions: true
-    }
-  }
-}
+// resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-08-01' = {
+//   name: logAnalyticsName
+//   location: location
+//   tags: {
+//     displayName: 'Log Analytics'
+//     ProjectName: appName
+//   }
+//   properties: {
+//     sku: {
+//       name: 'PerGB2018'
+//     }
+//     retentionInDays: 120
+//     features: {
+//       searchVersion: 1
+//       legacy: 0
+//       enableLogAccessUsingOnlyResourcePermissions: true
+//     }
+//   }
+// }
