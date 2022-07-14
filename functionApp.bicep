@@ -21,6 +21,8 @@ param runtime string = 'python'
 
 @description('The URL for the GitHub repository that contains the project to deploy.')
 param repoURL string = 'https://github.com/nsmaassel/Overdose-Prevention-Solution-Accelerator.git'
+// TODO: Swap on PR to upstream repo
+// param repoURL string = 'https://github.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator.git'
 
 @description('The branch of the GitHub repository to use.')
 param branch string = 'main'
@@ -76,6 +78,8 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
   properties: {
     serverFarmId: appServicePlan.id
     siteConfig: {
+      numberOfWorkers: 1
+      linuxFxVersion: 'Python|3.9'
       appSettings: [
         {
           name: 'AzureWebJobsStorage'
@@ -141,8 +145,8 @@ resource siteName_config 'Microsoft.Web/sites/config@2021-03-01' = {
   parent: functionApp
   name: 'appsettings'
   properties: {
-    PROJECT: 'Individual-Risk-Profile'
-    // clientUrl: 'http://${functionAppName}.azurewebsites.net/api'
+    PROJECT: 'OAA%20Function%20App'
+    clientUrl: 'http://${functionAppName}.azurewebsites.net/api'
     // netFrameworkVersion: 'v6.0'
   }
 }

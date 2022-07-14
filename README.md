@@ -1,35 +1,127 @@
 ![MSUS Solution Accelerator](./images/MSUS%20Solution%20Accelerator%20Banner%20Two_981.jpg)
 
-## About this repository
-This accelerator was built to provide developers with all of the resources needed to build a solution to....
-
-
 ## Getting Started 
 Start by deploying the resources needed for this solution: 
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](path_to_azuredeploy.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2Fmain.json)
 
 1. Clone this repository and navigate to the root of the directory  
 2. Go to the [Deployment Guide](./DEPLOY.md) for the steps you need to take to deploy this solution 
 
+# Opioid Overdose Accelerator
+
+## About This Repository
+The Opioid Overdose Solution Accelerator is an end-to-end solution that provides a risk score that a patient will overdose on opioids in the next year that medical providers can take into account when making clinical decisions and an overview of opioid overdoses at the community level.
+
+The individual risk score tool allows for medical providers to input a set of demographic and medical data for an individual patient, which will return the risk score for an individual overdosing on opioids in the next year, along with the percentile of that risk score. It will also return the 5 features that are most likely to increase an individual's risk of overdosing on opioids. This information is only meant to be used in conjunction with other aspects of a patient's medical history and should not be used as the sole factor in deciding whether or not to prescribe opioids.
+
+The community level map allows for interested community members to map the number of opioid overdoses in a certain area as well as the concentration of schools, clinics, hospitals, social facilities, fire stations, police stations, and libraries. The example geography used in the community level map is King County, WA at the ZIP Code level.
+
+Users of this Solution Accelerator will be able to customize both the patient charesteristics for the individual risk score module and the geographic features & community institutions for the map view.
+
+## Architecture Overview
+The architecture diagram below details what will be built with this Solution Accelerator.
+
+![](assets/architecture_diagram.png)
+
 ## Prerequisites
-In order to successfully complete your solution, you will need to have access to and or provisioned the following:
-1. item 1
-2. item 2
-3. item 3
+To use this Solution Accelerator, you will need access to and/or provision the following applications:
+1. Access to an Azure Subscription
+1. Visual Studio
+1. Visual Studio Code 
 
-### Optional
-1. item 1
+A working knowledge of Azure, Azure Storage Accounts, Azure Functions, will also be helpful. To learn more about these services, please visit:
+1. Azure
+1. Azure Storage Accounts
+1. Azure Functions
+1. Azure App Services
 
-## Azure Platform
-The directions provided for this repository assume fundemental working knowledge of ...
+For users who wish to select features and adjust the model in the cloud, a working knowledge of Azure Databricks would be helpful.
 
-For additional training and support, please see:
- 1. item 1
- 2. item 2
- 3. item 3
+## Getting Started
 
-## Process Overview  
+
+## Individual Risk Score Model
+The Individual Risk Score model generates the probability that an individual will overdose on opioids within the next year and the percentile of the population their overdose risk falls in.
+
+### Features
+
+The features for the Individual Risk Score Model come from the National Survey on Drug Use and Health (NSDUH). The survey includes over 2,000 features selected from around 30,000 participants each year. A full list of features can be found in the NSDUH Codebook.
+
+For this Solution Accelerator, 27 features were used, relating to demographics, substance use, and mental health. The features are split into 5 categories, as detailed below:
+
+#### Section 1: Personal Info
+| Survey Code | Feature | Type |
+| --- | --- | --- |
+| EDUHIGHCAT | Educational Attainment | Categorical |
+| AGE2 | Age | Bin |
+| IRSEX | Sex | Categorical |
+| TXYRRECVD2 | Substance Use Treatment in Past Year | Binary |
+| TXEVRRCVD2 | Substance Use Treatment in Lifetime | Binary |
+
+#### Section 2: Alcohol History
+| Survey Code | Feature | Type |
+| --- | --- | --- |
+| IRALCAGE | Age at First Use of Alcohol | Bin |
+| IRALCRC | Most Recent Alcohol Use | Categorical |
+| IRALCFY | Days Using Alcohol in Past Year | Bin |
+| CABINGEVR | Ever Binge Drank | Categorical |
+
+#### Section 3: Smoking History (Tobacco & Cannabis)
+| Survey Code | Feature | Type |
+| --- | --- | --- |
+| IRCIGRC | Most Recent Cigarette Use | Categorical |
+| CIGAGE | Age When Daily Cigarette Use Started | Bin |
+| FUCIG18 | First Ever Cigaretts Use before Age 18 | Categorical |
+| TOBYR | Tobacco Use in Past Year | Categorical |
+| IRMJRC | Most Recent Cannabis Use | Categorical |
+| IRMJFY | Days Using Cannabis in Past Year | Bin |
+| FUMJ18 | First Ever Cannabis Use before Age 18 | Categorical |
+
+#### Section 4: Hard Drug History
+| Survey Code | Feature | Type |
+| --- | --- | --- |
+| IRCOCRC | Most Recent Powder Cocaine Use | Categorical |
+| IRCRKRC | Most Recent Crack Cocaine Use | Categorical |
+| IRHERRC | Most Recent Heroin Use | Categorical |
+| IRHALLUCREC | Most Recent Hallucinogen Use | Categorical |
+| IRLSDRC | Most Recent LSD Use | Categorical |
+| IRECSTMOREC | Most Recent Ecstasy Use | Categorical |
+| IRINHALREC | Most Recent Inhalent Use | Categorical |
+| IRMETHAMREC | Most Recent Amphetamnic Use | Categorical |
+
+#### Section 5: Mental Health & Criminal Justice
+| Survey Code | Feature | Type |
+| --- | --- | --- |
+| ADDPREV | Feeling Depressed for Several Days | Binary |
+| ADDSCEV | Feeling Discouraged for Several Days | Binary |
+| BOOKED | Booked in Criminal Justice System | Binary |
+
+The target variable `MISUSE` was coded from values of the survey code `PNRNMREC` that signify an overdose on opioids in the past year.
+
+### Model
+The model that was selected for the implementation of this Solution Accelerator is a calibrated Extreme Gradient Boosting (XGBoost) model. The hyperparameters of the model are as follows:
+
+| Hyperparameter | Value |
+| --- | --- |
+| `learning_rate` | 0.1 |
+| `max_depth` | 3 |
+| `n_estimators` | 630 |
+| `booster` | gbtree |
+
+### Function App
+When users of the Individual Risk Score Model Web App submit their inputs to be modelled, those inputs are sent to the Function App as an HTTP POST method over its API. There, the incoming JSON is converted to a Pandas DataFrame, and inputs values are adjusted to align with the same values as in the NSDUH training data. For example, the values for Days Using Alcohol in the Past Year differ based on if a respondant has never drank alcohol or has not drank alcohol in the past year.
+
+The inputs are then run against the model, and the risk probability, percentile, and features with SHAP values are returned. These are then combined into a JSON object, which is sent back to the Web App.
+
+## Community Rate Visualization
+The Community Rate Visualization allows for interested community members to view the number of opioid overdoses in geographic regions (in this example, ZIP Codes in King County, WA) and the location of community institutions to see if the locations of these institution correlate with a higher or lower overdose rate.
+
+For this Solution Accelerator, the number of overdoses in each ZIP Code in King County was imputed based on the number of fatal overdoses in a ZIP Code. Comparing the number of fatal and non-fatal opioid overdoses showed that around 12.50% of opioid overdoses were fatal, so the total number of overdoses was imputed by taking the number of fatal overdoses and dividing them by 0.1250. The number of overdoses were then added to as properties of GeoJSON files containing all ZIP Codes within King County.
+
+The community institutions were pulled from, and cached on the Web App server from the OpenStreetMap API. The community institutions chosed for this Solution Accelerator are schools, clinics, hospitals, social facilities, fire stations, police stations, and libraries.
+
+The overdose data, geographies, and categories of community institutions can be modified to allow for users to customize the data displayed to their specific needs.
 
 
 ## License
