@@ -38,13 +38,31 @@ az deployment group create --name "OOAFunctionAppDeployment" --resource-group OO
 <!-- Delete everything -->
 az group delete --name "OOA-rg"
 
-## Step 3. Upload Sample Dataset
+## Step 3. Upload Data
+To upload the data used for the solution, follow these steps:
 
-## Step 4. Security Access
+1. Open the Data Lake (called `oaadatastore` in this deployment package)
+1. Click the tab on the left column menu called Storage browser
+1. Click on the Blob containers square
+1. Click Add container, type in a name, and click Create
+1. Click Upload and upload these files:
+  - Individual-Risk-Profile/models/calibXGB.model
+  - Individual-Risk-Profile/models/colNamesList.zip
+  - Individual-Risk-Profile/models/modelXGBCal.explainer
+  - Individual-Risk-Profile/models/modelXGBCalPredProbs.npy
 
-## Step 5. text here
+## Step 4. Function App Configuration
 
-## Step 6. text here
+To ensure the Web App can connect to the Function App in this solution, follow these steps:
+
+1. Open the Function App (called `oaamodelling` in this deployment package)
+1. Click the tab on the left column menu called App Keys
+1. Click the eye icon next to the `default` key to display the value; copy that value
+1. Add that key to the end of this URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=\<Key\>` for use in the Web App
+
+## Step 5. Individual Score Web App Configuration
+
+## Step 6. Community Level Web App Configuration
 
 # Congratulations
 You have completed this solution accelerator and should now have a report to explore the personalized recommendations:
