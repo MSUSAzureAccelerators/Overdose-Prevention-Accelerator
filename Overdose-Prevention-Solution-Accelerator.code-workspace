@@ -1,0 +1,10 @@
+{
+	"folders": [
+		{
+			"path": "OAA Function App"
+		}
+	],
+	"settings": {
+		"debug.internalConsoleOptions": "neverOpen"
+	}
+}

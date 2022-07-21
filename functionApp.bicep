@@ -145,8 +145,8 @@ resource siteName_config 'Microsoft.Web/sites/config@2021-03-01' = {
   parent: functionApp
   name: 'appsettings'
   properties: {
-    PROJECT: 'OAA%20Function%20App'
-    clientUrl: 'http://${functionAppName}.azurewebsites.net/api'
+    // PROJECT: 'OAA%20Function%20App'
+    // clientUrl: 'http://${functionAppName}.azurewebsites.net/api'
     // netFrameworkVersion: 'v6.0'
   }
 }

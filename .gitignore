@@ -368,7 +368,6 @@ azure-devops-runner-config.json
 vsts-runner-config.json
 
 # Editors
-.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
