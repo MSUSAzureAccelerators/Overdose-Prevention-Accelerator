@@ -34,7 +34,7 @@ namespace OverdoseWebAccelerator.Controllers
             
             try
             {
-                var url = _webservice.URL;
+                var url = _webservice.url + _webservice.token;
                 var json = JsonConvert.SerializeObject(model.Questionnaire);
                 var client = new HttpClient();
                 var content = new StringContent(json, Encoding.UTF8, "application/json");

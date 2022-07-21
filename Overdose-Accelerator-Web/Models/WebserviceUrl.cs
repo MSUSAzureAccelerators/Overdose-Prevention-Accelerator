@@ -3,7 +3,8 @@ namespace OverdoseAcceleratorWeb.Models
 {
 	public class WebServiceUrl
 	{
-		public string URL { get; set; }
+		public string url { get; set; }
+		public string token { get; set; }; 
 		public WebServiceUrl() { }
 	}
 }
