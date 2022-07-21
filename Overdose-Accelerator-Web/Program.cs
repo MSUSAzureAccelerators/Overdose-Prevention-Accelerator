@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<FormDictionaries>((settings) => { builder.Configuration.GetSection("FormDictionaries").Bind(settings); });
+builder.Services.Configure<WebServiceUrl>((settings) => { builder.Configuration.GetSection("WebServiceUrl").Bind(settings); }); 
 builder.Services.AddOptions();
 var app = builder.Build();
 

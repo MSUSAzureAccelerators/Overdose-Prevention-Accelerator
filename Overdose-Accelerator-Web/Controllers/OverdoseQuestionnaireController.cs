@@ -11,11 +11,13 @@ namespace OverdoseWebAccelerator.Controllers
     {
         private readonly ILogger<OverdoseQuestionnaireController> _logger;
         private readonly FormDictionaries _formDictionaries;
+        private readonly WebServiceUrl _webservice; 
 
-        public OverdoseQuestionnaireController(IOptions<FormDictionaries> formDictionaries, ILogger<OverdoseQuestionnaireController> logger)
+        public OverdoseQuestionnaireController(IOptions<FormDictionaries> formDictionaries, IOptions<WebServiceUrl> webservice,  ILogger<OverdoseQuestionnaireController> logger)
         {
             _logger = logger;
             _formDictionaries = formDictionaries.Value;
+            _webservice = webservice.Value;
         }
         [HttpGet]
         public IActionResult Index()
@@ -32,7 +34,7 @@ namespace OverdoseWebAccelerator.Controllers
             
             try
             {
-                var url = "http://oaamodelling.azurewebsites.net/api/ModelIndividualScore?code=3YXQxkmJebiDx-pqw5cEgKeLlc7eIc79RpvbG_0r2ERWAzFuVDt0VA==";
+                var url = _webservice.URL;
                 var json = JsonConvert.SerializeObject(model.Questionnaire);
                 var client = new HttpClient();
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
