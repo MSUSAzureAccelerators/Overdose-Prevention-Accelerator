@@ -5,38 +5,37 @@ To start, clone or download this repository and navigate to the project's root d
 
 ## Step 2. Setup Resources
 
-## ARM template deployment
-
 # Using the deploy button
 Whenever the .bicep files are modified, the main.json file needs to be updated by running:
 `az bicep build --file main.bicep --outdir .`
 
-This is because the Deploy to Azure button does not yet support .bicep files.
+*(The Deploy to Azure button does not yet support .bicep files)*
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2Fmain.json)
 
-# Building the ARM template
-Create resource group
-az group create --name "OOA-rg" --location "westus"
+# Deploying the app from the command line
+### Create resource group
+`az group create --name "OOA-rg" --location "westus"`
 
-Create deployment group and deploy via ARM template
+### Create deployment group and deploy via ARM template
 <!-- Resource Group deploy -->
-`az deployment group create --name "NickOOADeployment" --resource-group "Nick-OOA-rg" --template-file "./main.bicep"`
-az deployment sub create --name "OOADeployment" --template-file "./main.bicep" --parameters resourceGroupLocation="westus"
+`az deployment sub create --name "OOADeployment" --template-file "./main.bicep" --parameters resourceGroupLocation="westus"`
 
+## Alternative deployment methods
 <!-- Subscription deploy -->
-<!--    Deploy everything at once -->
-az deployment sub create --name "OOADeployment" --location "westus" --template-file "./main.bicep"
-<!--    Deploy just the frontend -->
-az deployment group create --name "OOAFrontendDeployment" --resource-group OOA-rg --template-file "./dotnetApp.bicep"
-<!--    Deploy just the backend/function app -->
-az deployment group create --name "OOAFunctionAppDeployment" --resource-group OOA-rg --template-file "./functionApp.bicep"
-<!-- How to pass parameters to a bicep file: -->
-  <!-- --parameters storageAccountType=Standard_GRS -->
+### Deploy everything at once ###
+`az deployment sub create --name "OOADeployment" --location "westus" --template-file "./main.bicep"`
+
+### Deploy just the frontend ###
+`az deployment group create --name "OOAFrontendDeployment" --resource-group OOA-rg --template-file "./dotnetApp.bicep"`
+
+### Deploy just the backend/function app ###
+`az deployment group create --name "OOAFunctionAppDeployment" --resource-group OOA-rg --template-file "./functionApp.bicep"`
 
 ## Teardown
+If you want to delete everything created, just delete the resource group as follows:
 <!-- Delete everything -->
-az group delete --name "OOA-rg"
+`az group delete --name "OOA-rg"`
 
 ## Step 3. Upload Data
 To upload the data used for the solution, follow these steps:
