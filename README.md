@@ -50,7 +50,7 @@ To start, clone or download this repository and navigate to the project's root d
 
     *(The Deploy to Azure button does not yet support .bicep files)*
 
-# Congratulations
+## Congratulations
 You have completed this solution accelerator and should now have a report to explore the personalized recommendations:
 
 # Opioid Overdose Accelerator
