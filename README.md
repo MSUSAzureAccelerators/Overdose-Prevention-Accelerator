@@ -3,8 +3,6 @@
 ## Getting Started 
 Start by deploying the resources needed for this solution: 
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2Fmain.json)
-
 1. Clone this repository and navigate to the root of the directory  
 2. Go to the [Deployment Guide](./DEPLOY.md) for the steps you need to take to deploy this solution 
 
