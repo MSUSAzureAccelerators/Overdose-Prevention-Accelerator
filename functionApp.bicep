@@ -95,7 +95,7 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
         }
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'
-          value: '~2'
+          value: '~4'
         }
         {
           name: 'WEBSITE_NODE_DEFAULT_VERSION'
@@ -127,26 +127,26 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
 //   }
 // }
 
-resource siteName_sourcecontrol 'Microsoft.Web/sites/sourcecontrols@2020-12-01' = {
-  parent: functionApp
-  name: 'web'
-  location: location
-  properties: {
-    repoUrl: repoURL
-    branch: branch
-    isManualIntegration: true
-  }
-  dependsOn: [
-    siteName_config
-  ]
-}
+// resource siteName_sourcecontrol 'Microsoft.Web/sites/sourcecontrols@2020-12-01' = {
+//   parent: functionApp
+//   name: 'web'
+//   location: location
+//   properties: {
+//     repoUrl: repoURL
+//     branch: branch
+//     isManualIntegration: true
+//   }
+//   dependsOn: [
+//     siteName_config
+//   ]
+// }
 
-resource siteName_config 'Microsoft.Web/sites/config@2021-03-01' = {
-  parent: functionApp
-  name: 'appsettings'
-  properties: {
-    // PROJECT: 'OAA%20Function%20App'
-    // clientUrl: 'http://${functionAppName}.azurewebsites.net/api'
-    // netFrameworkVersion: 'v6.0'
-  }
-}
+// resource siteName_config 'Microsoft.Web/sites/config@2021-03-01' = {
+//   parent: functionApp
+//   name: 'appsettings'
+//   properties: {
+//     // PROJECT: 'OAA%20Function%20App'
+//     // clientUrl: 'http://${functionAppName}.azurewebsites.net/api'
+//     // netFrameworkVersion: 'v6.0'
+//   }
+// }

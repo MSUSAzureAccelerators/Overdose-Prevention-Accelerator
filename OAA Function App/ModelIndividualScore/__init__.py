@@ -20,14 +20,14 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
     # Parameters/Configurations
-    abs_acct_name='oaadatastore'
+    abs_acct_name='ooadatastore'
     abs_acct_url=f'https://{abs_acct_name}.blob.core.windows.net/'
     abs_container_name='individual'
 
     try:
-        key_vault_name = 'oaavault'
+        key_vault_name = 'ooavault'
         key_vault_Uri = f"https://{key_vault_name}.vault.azure.net"
-        blob_secret_name = 'oaadatastoresecret'
+        blob_secret_name = 'ooadatastoresecret'
 
         # Authenticate and securely retrieve Key Vault secret for access key value.
         az_credential = DefaultAzureCredential()
