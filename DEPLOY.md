@@ -8,7 +8,8 @@ To start, clone or download this repository and navigate to the project's root d
 # Using the deploy button
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2Fmain.json)
 
-Note - Whenever the .bicep files are modified, the main.json file needs to be updated by running: `az bicep build --file main.bicep --outdir .`
+Note - Whenever the .bicep files are modified, the main.json file needs to be updated by running: 
+`az bicep build --file main.bicep --outdir .`
 
 *(The Deploy to Azure button does not yet support .bicep files)*
 
