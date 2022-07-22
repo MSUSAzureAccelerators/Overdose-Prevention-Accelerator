@@ -6,12 +6,9 @@ To start, clone or download this repository and navigate to the project's root d
 ## Step 2. Setup Resources
 1. Deploy the resource group: 
 
-      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2resourceGroup.json)
-
-      or 
-
-      <!-- Run using Azure CLI -->
-      `az group create --name "OOA-rg" --location "westus"`
+      Run using Azure CLI 
+        
+        `az group create --name "OOA-rg" --location "westus"`
 
 2. Deploy the function app to the resource group:
     - The function app is contained in this folder "OOA Function App"
@@ -41,7 +38,7 @@ To start, clone or download this repository and navigate to the project's root d
 
 5. Deploy the frontend app:
 
-      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2Fmain.json)
+      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FdotnetApp.json)
 
     Note - Whenever the .bicep files are modified, the main.json file needs to be updated by running: 
     
