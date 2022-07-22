@@ -10,6 +10,8 @@ To start, clone or download this repository and navigate to the project's root d
         
         `az group create --name "OOA-rg" --location "westus"`
 
+      Use this resource group for all subsequent resources.
+
 2. Deploy the function app to the resource group:
     - The function app is contained in this folder "OOA Function App"
     - You can follow the instructions here for deploying a function app to Azure from VS Code: https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code?tabs=python#quick-function-app-create
