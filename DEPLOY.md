@@ -57,7 +57,7 @@ To ensure the Web App can connect to the Function App in this solution, follow t
 1. Open the Function App (called `oaamodelling` in this deployment package)
 1. Click the tab on the left column menu called App Keys
 1. Click the eye icon next to the `default` key to display the value; copy that value
-1. Add that key to the end of this URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=\<Key\>` for use in the Web App
+1. Add that token, and URL to the appsettings.json file under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App
 
 ## Step 5. Individual Score Web App Configuration
 
