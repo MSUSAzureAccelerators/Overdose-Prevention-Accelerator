@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "OAA Function App"
+		},
+		{
+			"path": "Overdose-Accelerator-Web"
 		}
 	],
 	"settings": {
