@@ -6,13 +6,9 @@
 To start, clone or download this repository and navigate to the project's root directory.
 
 ### Step 2. Setup Resources
-1. Deploy the resource group: 
+1. Deploy the resource group and function app to the resource group:: 
 
-      Run using Azure CLI 
-        
-        `az group create --name "OOA-rg" --location "westus"`
-
-      Use this resource group for all subsequent resources.
+      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FfunctionApp.json)
 
 1. Deploy the function app to the resource group:
     - The function app is contained in this folder "OOA Function App"
@@ -21,7 +17,7 @@ To start, clone or download this repository and navigate to the project's root d
 1. Upload data to the function app:
   To upload the data used for the solution, follow these steps:
 
-    1. Open the Data Lake (called `ooadatastore` in this deployment package)
+    1. Open the Data Lake (look in the resource group you used during the previous step for a resource with the name 'ooads<uniqueString>')
     1. Click the tab on the left column menu called Storage browser
     1. Click on the Blob containers square
     1. Click Add container, type in a name, and click Create
@@ -52,7 +48,9 @@ To start, clone or download this repository and navigate to the project's root d
 
 1. Deploy the frontend app:
 
-      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FdotnetApp.json)
+    When prompted for a resource group, select the resource group you created in the first step.
+
+      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FdotnetApp.json)
 
     Note - Whenever the .bicep files are modified, the main.json file needs to be updated by running: 
     

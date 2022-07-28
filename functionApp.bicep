@@ -19,18 +19,17 @@ param skuCapacity int = 1
 @description('The language worker runtime to load in the function app.')
 param runtime string = 'python'
 
-@description('The URL for the GitHub repository that contains the project to deploy.')
-param repoURL string = 'https://github.com/nsmaassel/Overdose-Prevention-Solution-Accelerator.git'
-// TODO: Swap on PR to upstream repo
+// *** Source control deployment is not currently working for the function app, so this has been disabled. ***
+// @description('The URL for the GitHub repository that contains the project to deploy.')
 // param repoURL string = 'https://github.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator.git'
 
-@description('The branch of the GitHub repository to use.')
-param branch string = 'main'
+// @description('The branch of the GitHub repository to use.')
+// param branch string = 'main'
 
 var functionAppName = appName
 var appServicePlanName = appName
 // var applicationInsightsName = appName
-var storageAccountName = 'ds${uniqueString(resourceGroup().id)}'
+var storageAccountName = 'ooads${uniqueString(resourceGroup().id)}'
 var functionWorkerRuntime = runtime
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
@@ -127,6 +126,7 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
 //   }
 // }
 
+// *** Source control deployment is not currently working for the function app, so this has been disabled. ***
 // resource siteName_sourcecontrol 'Microsoft.Web/sites/sourcecontrols@2020-12-01' = {
 //   parent: functionApp
 //   name: 'web'
