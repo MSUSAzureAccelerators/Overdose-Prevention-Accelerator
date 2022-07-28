@@ -16,9 +16,7 @@ param skuName string = 'S1'
 param skuCapacity int = 1
 
 @description('The URL for the GitHub repository that contains the project to deploy.')
-param repoURL string = 'https://github.com/nsmaassel/Overdose-Prevention-Solution-Accelerator.git'
-// TODO: Swap on PR to upstream repo
-// param repoURL string = 'https://github.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator.git'
+param repoURL string = 'https://github.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator.git'
 
 @description('The branch of the GitHub repository to use.')
 param branch string = 'main'
