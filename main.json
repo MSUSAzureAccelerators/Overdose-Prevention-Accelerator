@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.8.9.13224",
-      "templateHash": "3992879283816728362"
+      "templateHash": "1797517202036383057"
     }
   },
   "parameters": {
@@ -188,7 +188,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.8.9.13224",
-              "templateHash": "11930319900890488768"
+              "templateHash": "4237797354817029302"
             }
           },
           "parameters": {
@@ -331,10 +331,6 @@
                     {
                       "name": "FUNCTIONS_WORKER_RUNTIME",
                       "value": "[variables('functionWorkerRuntime')]"
-                    },
-                    {
-                      "name": "WEBSITE_RUN_FROM_PACKAGE",
-                      "value": "https://github.com/nsmaassel/Overdose-Prevention-Solution-Accelerator/releases/download/v0.0.1/OOA-Function-App.zip"
                     }
                   ],
                   "ftpsState": "FtpsOnly",
