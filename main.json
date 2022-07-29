@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.8.9.13224",
-      "templateHash": "4206665545471605052"
+      "templateHash": "5177665472033842287"
     }
   },
   "parameters": {
@@ -51,7 +51,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.8.9.13224",
-              "templateHash": "15586670881004589243"
+              "templateHash": "17386877393137462727"
             }
           },
           "parameters": {
@@ -85,7 +85,7 @@
             },
             "repoURL": {
               "type": "string",
-              "defaultValue": "https://github.com/nsmaassel/Overdose-Prevention-Solution-Accelerator.git",
+              "defaultValue": "https://github.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator.git",
               "metadata": {
                 "description": "The URL for the GitHub repository that contains the project to deploy."
               }
@@ -188,7 +188,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.8.9.13224",
-              "templateHash": "11226651496401853026"
+              "templateHash": "12705680977007179338"
             }
           },
           "parameters": {
@@ -236,7 +236,7 @@
             },
             "repoURL": {
               "type": "string",
-              "defaultValue": "https://github.com/nsmaassel/Overdose-Prevention-Solution-Accelerator.git",
+              "defaultValue": "https://github.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator.git",
               "metadata": {
                 "description": "The URL for the GitHub repository that contains the project to deploy."
               }
@@ -252,7 +252,7 @@
           "variables": {
             "functionAppName": "[parameters('appName')]",
             "appServicePlanName": "[parameters('appName')]",
-            "storageAccountName": "[format('ds{0}', uniqueString(resourceGroup().id))]",
+            "storageAccountName": "[format('ooads{0}', uniqueString(resourceGroup().id))]",
             "functionWorkerRuntime": "[parameters('runtime')]"
           },
           "resources": [
@@ -305,6 +305,8 @@
               "properties": {
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
                 "siteConfig": {
+                  "numberOfWorkers": 1,
+                  "linuxFxVersion": "Python|3.9",
                   "appSettings": [
                     {
                       "name": "AzureWebJobsStorage",
@@ -320,7 +322,7 @@
                     },
                     {
                       "name": "FUNCTIONS_EXTENSION_VERSION",
-                      "value": "~2"
+                      "value": "~4"
                     },
                     {
                       "name": "WEBSITE_NODE_DEFAULT_VERSION",
@@ -329,6 +331,10 @@
                     {
                       "name": "FUNCTIONS_WORKER_RUNTIME",
                       "value": "[variables('functionWorkerRuntime')]"
+                    },
+                    {
+                      "name": "WEBSITE_RUN_FROM_PACKAGE",
+                      "value": "https://github.com/nsmaassel/Overdose-Prevention-Solution-Accelerator/releases/download/v0.0.1/OOA-Function-App.zip"
                     }
                   ],
                   "ftpsState": "FtpsOnly",
@@ -361,7 +367,9 @@
               "apiVersion": "2021-03-01",
               "name": "[format('{0}/{1}', variables('functionAppName'), 'appsettings')]",
               "properties": {
-                "PROJECT": "Individual-Risk-Profile"
+                "PROJECT": "OAA-Function-App",
+                "clientUrl": "[format('http://{0}.azurewebsites.net/api', variables('functionAppName'))]",
+                "netFrameworkVersion": "v6.0"
               },
               "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', variables('functionAppName'))]"
