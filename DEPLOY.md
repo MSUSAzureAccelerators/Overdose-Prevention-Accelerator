@@ -40,20 +40,22 @@ To start, clone or download this repository and navigate to the project's root d
     1. Enter a Name for the secret (called `ooadatastoresecret` in this deployment package) and enter the copied key in the Value field, then click Create
 
 
-1. Configure the Front End Web App for connecting to the function app
+1. Configure the frontend app (Overdose-Accelerator-Web)
 
-    To ensure the Web App can connect to the Function App in this solution, follow these steps:
+    To ensure the Web App can connect to the Function App's API, follow these steps:
 
-      1. Open the Function App (called `ooamodelling` in this deployment package)
+      1. Open the Function App in Azure Portal
       1. Click the tab on the left column menu called App Keys
       1. Click the eye icon next to the `default` key to display the value; copy that value
-      1. Add that token, and URL to the file "Overdose-Accelerator-Web\appsettings.json" under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
+      ![](20220728122341.png)  
+      1. Is VS Code (or another editor) add that token and URL to the file "Overdose-Accelerator-Web\appsettings.json" under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
+      ![](20220728124333.png)  
       1. Commit and push the changes to your repo
       
 
-1. Deploy the frontend app:
+1. Deploy the frontend app (Overdose-Accelerator-Web) to the resource group:
 
-      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2Fmain.json)
+      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2Fmain.json)
 
     Note - Whenever the .bicep files are modified, the main.json file needs to be updated by running: 
     
