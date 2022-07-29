@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.8.9.13224",
-      "templateHash": "8436229432343039230"
+      "templateHash": "5177665472033842287"
     }
   },
   "parameters": {
@@ -188,7 +188,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.8.9.13224",
-              "templateHash": "4060743175484685214"
+              "templateHash": "12705680977007179338"
             }
           },
           "parameters": {
@@ -367,7 +367,7 @@
               "apiVersion": "2021-03-01",
               "name": "[format('{0}/{1}', variables('functionAppName'), 'appsettings')]",
               "properties": {
-                "PROJECT": "OAA%20Function%20App",
+                "PROJECT": "OAA-Function-App",
                 "clientUrl": "[format('http://{0}.azurewebsites.net/api', variables('functionAppName'))]",
                 "netFrameworkVersion": "v6.0"
               },
