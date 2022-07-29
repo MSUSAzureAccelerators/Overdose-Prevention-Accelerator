@@ -8,7 +8,7 @@ To start, clone or download this repository and navigate to the project's root d
 
       Run using Azure CLI 
         
-        `az group create --name "OOA-rg" --location "westus"`
+        az group create --name "OOA-rg" --location "westus"
 
       Use this resource group for all subsequent resources.
 
@@ -40,14 +40,19 @@ To start, clone or download this repository and navigate to the project's root d
     1. Enter a Name for the secret (called `ooadatastoresecret` in this deployment package) and enter the copied key in the Value field, then click Create
 
 
-1. Function App Configuration
+1. Configure the Front End Web App for connecting to the function app
 
     To ensure the Web App can connect to the Function App in this solution, follow these steps:
 
       1. Open the Function App (called `ooamodelling` in this deployment package)
       1. Click the tab on the left column menu called App Keys
       1. Click the eye icon next to the `default` key to display the value; copy that value
-      1. Add that token, and URL to the appsettings.json file, in the Overdose-Accelerator-Web project, under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
+
+     
+      1. Add that token, and URL to the file "Overdose-Accelerator-Web\appsettings.json" under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
+      1. Commit and push the changes to your repo
+      
+
 
 1. Deploy the frontend app:
 
