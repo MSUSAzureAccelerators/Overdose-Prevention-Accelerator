@@ -20,11 +20,11 @@ param skuCapacity int = 1
 param runtime string = 'python'
 
 // *** Source control deployment is not currently working for the function app, so this has been disabled. ***
-// @description('The URL for the GitHub repository that contains the project to deploy.')
-// param repoURL string = 'https://github.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator.git'
+@description('The URL for the GitHub repository that contains the project to deploy.')
+param repoURL string = 'https://github.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator.git'
 
-// @description('The branch of the GitHub repository to use.')
-// param branch string = 'main'
+@description('The branch of the GitHub repository to use.')
+param branch string = 'main'
 
 var functionAppName = appName
 var appServicePlanName = appName
@@ -70,6 +70,10 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
   identity: {
     type: 'SystemAssigned'
   }
+  dependsOn: [
+    storageAccount
+    appServicePlan
+  ]
   tags: {
     displayName: 'Function App'
     ProjectName: appName
@@ -108,6 +112,10 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
           name: 'FUNCTIONS_WORKER_RUNTIME'
           value: functionWorkerRuntime
         }
+        {
+          name: 'WEBSITE_RUN_FROM_PACKAGE'
+          value: 'https://github.com/nsmaassel/Overdose-Prevention-Solution-Accelerator/releases/download/v0.0.1/OOA-Function-App.zip'
+        }
       ]
       ftpsState: 'FtpsOnly'
       minTlsVersion: '1.2'
@@ -127,26 +135,26 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
 // }
 
 // *** Source control deployment is not currently working for the function app, so this has been disabled. ***
-// resource siteName_sourcecontrol 'Microsoft.Web/sites/sourcecontrols@2020-12-01' = {
-//   parent: functionApp
-//   name: 'web'
-//   location: location
-//   properties: {
-//     repoUrl: repoURL
-//     branch: branch
-//     isManualIntegration: true
-//   }
-//   dependsOn: [
-//     siteName_config
-//   ]
-// }
+resource siteName_sourcecontrol 'Microsoft.Web/sites/sourcecontrols@2020-12-01' = {
+  parent: functionApp
+  name: 'web'
+  location: location
+  properties: {
+    repoUrl: repoURL
+    branch: branch
+    isManualIntegration: true
+  }
+  dependsOn: [
+    siteName_config
+  ]
+}
 
-// resource siteName_config 'Microsoft.Web/sites/config@2021-03-01' = {
-//   parent: functionApp
-//   name: 'appsettings'
-//   properties: {
-//     // PROJECT: 'OAA%20Function%20App'
-//     // clientUrl: 'http://${functionAppName}.azurewebsites.net/api'
-//     // netFrameworkVersion: 'v6.0'
-//   }
-// }
+resource siteName_config 'Microsoft.Web/sites/config@2021-03-01' = {
+  parent: functionApp
+  name: 'appsettings'
+  properties: {
+    PROJECT: 'OAA%20Function%20App'
+    clientUrl: 'http://${functionAppName}.azurewebsites.net/api'
+    netFrameworkVersion: 'v6.0'
+  }
+}
