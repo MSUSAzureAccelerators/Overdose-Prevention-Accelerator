@@ -114,7 +114,7 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
         }
         {
           name: 'WEBSITE_RUN_FROM_PACKAGE'
-          value: 'https://github.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator/releases/download/v0.0.1-alpha/OOA-Function-App.zip'
+          value: 'https://github.com/nsmaassel/Overdose-Prevention-Solution-Accelerator/releases/download/v0.0.1-alpha/OOA-Function-App.zip'
         }
       ]
       ftpsState: 'FtpsOnly'
