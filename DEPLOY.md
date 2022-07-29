@@ -59,7 +59,7 @@ To start, clone or download this repository and navigate to the project's root d
 
     Note - Whenever the .bicep files are modified, the main.json file needs to be updated by running: 
     
-    `az bicep build --file main.bicep --outdir .`
+    `az bicep build --file dotnetApp.bicep --outdir .`
 
     *(The Deploy to Azure button does not yet support .bicep files)*
 
