@@ -123,38 +123,3 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
     httpsOnly: true
   }
 }
-
-// resource applicationInsights 'Microsoft.Insights/components@2020-02-02' = {
-//   name: applicationInsightsName
-//   location: appInsightsLocation
-//   kind: 'web'
-//   properties: {
-//     Application_Type: 'web'
-//     Request_Source: 'rest'
-//   }
-// }
-
-// *** Source control deployment is not currently working for the function app, so this has been disabled. ***
-resource siteName_sourcecontrol 'Microsoft.Web/sites/sourcecontrols@2020-12-01' = {
-  parent: functionApp
-  name: 'web'
-  location: location
-  properties: {
-    repoUrl: repoURL
-    branch: branch
-    isManualIntegration: true
-  }
-  dependsOn: [
-    siteName_config
-  ]
-}
-
-resource siteName_config 'Microsoft.Web/sites/config@2021-03-01' = {
-  parent: functionApp
-  name: 'appsettings'
-  properties: {
-    PROJECT: 'OAA-Function-App'
-    clientUrl: 'http://${functionAppName}.azurewebsites.net/api'
-    netFrameworkVersion: 'v6.0'
-  }
-}
