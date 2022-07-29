@@ -6,9 +6,13 @@
 To start, clone or download this repository and navigate to the project's root directory.
 
 ### Step 2. Setup Resources
-1. Deploy the resource group and function app to the resource group:: 
+1. Deploy the resource group: 
 
-      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FfunctionApp.json)
+      Run using Azure CLI 
+        
+        az group create --name "OOA-rg" --location "westus"
+
+      Use this resource group for all subsequent resources.
 
 1. Deploy the function app to the resource group:
     - The function app is contained in this folder "OOA Function App"
@@ -58,7 +62,8 @@ To start, clone or download this repository and navigate to the project's root d
       1. Open the Function App (called `ooamodelling` in this deployment package)
       1. Click the tab on the left column menu called App Keys
       1. Click the eye icon next to the `default` key to display the value; copy that value
-      1. Add that token, and URL to the appsettings.json file under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
+      1. Add that token, and URL to the file "Overdose-Accelerator-Web\appsettings.json" under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
+      1. Commit and push the changes to your repo
 
 1. Deploy the frontend app:
 
@@ -74,6 +79,28 @@ To start, clone or download this repository and navigate to the project's root d
 
 ## Congratulations
 You have completed this solution accelerator and should now have a report to explore the personalized recommendations:
+
+## Additional deployment resources
+
+### Alternative deployment via command line
+  ## Alternative deployment methods
+
+  ### Deploy everything at once
+
+    az deployment sub create --name "OOADeployment" --location "westus" --template-file "./main.bicep"
+
+  ### Deploy just the frontend
+
+    az deployment group create --name "OOAFrontendDeployment" --resource-group OOA-rg --template-file "./dotnetApp.bicep"
+
+  ### Deploy just the backend/function app
+
+    az deployment group create --name "OOAFunctionAppDeployment" --resource-group OOA-rg --template-file "./functionApp.bicep"
+
+  ## Teardown
+  If you want to delete everything created, just delete the resource group as follows:
+
+    az group delete --name "OOA-rg"
 
 # Opioid Overdose Accelerator
 
