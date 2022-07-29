@@ -30,12 +30,26 @@ To start, clone or download this repository and navigate to the project's root d
 1. Configure Key Vault
   To configure the Key Vault, follow these steps:
 
-    1. In the Data Lake (called `ooadatastore` in this deployment package), click the tab on the left column menu called Access keys
+    1. In the Data Lake, click the tab on the left column menu called Access keys
     1. Click the Show button next to the Key value for key1, and copy that value
-    1. Open the Key Vault (called `ooavault` in this deployment package)
+    1. Open the Key Vault (called 'ooakv<uniqueString>' in this deployment package)
     1. Click the tab on the let column menu called Secrets
     1. Click Generate/Import Secret
-    1. Enter a Name for the secret (called `ooadatastoresecret` in this deployment package) and enter the copied key in the Value field, then click Create
+    1. Enter a Name for the secret and enter the copied key1 in the Value field, then click Create
+
+1. Function App Configuration
+  To ensure the Function App is able to access data and return predictions, follow these steps:
+  
+    1. Open the file `OOA-Function-App/ModelIndividualScore/__init__.py` in VS Code
+    1. Set `abs_acct_name` on line 23 as the name of the storage account in the resource group
+    1. Set `abs_container_name` on line 25 as the name of the container the model data is placed in
+    1. If using a Key Vault, set `key_vault_name` on line 30 as the name Key Vault in the resource group and set `blob_secret_name` on line 32 as the name of the secret.
+    1. If not using a Key Vault, set `connection_string` on line 49 as the connection string for the storage account in the resource group.
+    1. Make sure all changes have been saved
+    1. Click the Azure icon on the left-hand menu in VS Code
+    1. Hover over WORKSPACE, and click the cloud icon with an up arrow that appears, then click Deploy to Function App
+    1. Select the Subscription and Resource Group the Function App is deployed in, then select that Function App
+    1. Click Deploy on the pop-up window that appears; this will deploy the Function App
 
 1. Function App Configuration
 
