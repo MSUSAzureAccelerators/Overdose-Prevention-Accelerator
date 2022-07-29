@@ -44,7 +44,7 @@ To start, clone or download this repository and navigate to the project's root d
       1. Open the Function App (called `ooamodelling` in this deployment package)
       1. Click the tab on the left column menu called App Keys
       1. Click the eye icon next to the `default` key to display the value; copy that value
-      1. Add that token, and URL to the appsettings.json file under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
+      1. Add that token, and URL to the appsettings.json file, in the Overdose-Accelerator-Web project, under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
 
 1. Deploy the frontend app:
 
