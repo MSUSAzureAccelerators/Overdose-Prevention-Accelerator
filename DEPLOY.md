@@ -2,8 +2,6 @@
 
 Deployment steps can be found in the README.md file.
 
-Below are some additional commands you can use to deploy your project.
-
 # Other resources
 
 ## Alternative deployment via command line
