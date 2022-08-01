@@ -49,7 +49,6 @@ To start, clone or download this repository and navigate to the project's root d
       1. Click the eye icon next to the `default` key to display the value; copy that value
 
      
-      1. Add that token, and URL to the file "Overdose-Accelerator-Web\appsettings.json" under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
       1. Commit and push the changes to your repo
       
 
@@ -63,6 +62,12 @@ To start, clone or download this repository and navigate to the project's root d
     `az bicep build --file main.bicep --outdir .`
 
     *(The Deploy to Azure button does not yet support .bicep files)*
+
+     1. After deploying the function app you can add the token, and URL to the file "Overdose-Accelerator-Web\appsettings.json" under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
+      a. then us VS Code to publish to the new front end app. 
+     2. As an alternative you can go to the Azure Portal and find the new frontend app and open it to the Overview Page,
+      a from there scroll down in the left hand side menu to the Development Tools section and select App Service Editor and directly edit the appsettings.json file. 
+      b. after editing the file you will need to return to the overview section and and restart the web app. 
 
 # Congratulations
 You have completed this solution accelerator and should now have a report to explore the personalized recommendations:
