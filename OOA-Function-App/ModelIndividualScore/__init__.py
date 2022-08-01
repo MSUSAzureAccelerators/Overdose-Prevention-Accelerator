@@ -20,9 +20,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
     # Parameters/Configurations
-    abs_acct_name='<INSERT STORAGE ACCOUNT NAME>'
+    abs_acct_name='ooadsme4h6bmdsc3om'
     abs_acct_url=f'https://{abs_acct_name}.blob.core.windows.net/'
-    abs_container_name='<INSERT CONTAINER NAME>'
+    abs_container_name='ooa-container'
 
     try:
         # Access Credential Via Key Vault
@@ -46,7 +46,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         
         # Input Connection String Manually
         except:
-            connection_string = '<INSERT STORAGE ACCOUNT CONNECTION STRING>'
+            connection_string = 'DefaultEndpointsProtocol=https;AccountName=ooadsme4h6bmdsc3om;AccountKey=Ox6jZKMkTL9eyuYyyLgh5RaVEjxhIYASzidjx4gAbvXEJ7CCzJI3KB9BYubxiKbeapjSTR37N9xK+AStJxskdg==;EndpointSuffix=core.windows.net'
             blob_service_client = BlobServiceClient.from_connection_string(connection_string)
             abs_container_client = blob_service_client.get_container_client('<INSERT CONTAINER NAME>')
 

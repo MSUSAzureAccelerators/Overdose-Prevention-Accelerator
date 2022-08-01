@@ -18,12 +18,13 @@ To start, clone or download this repository and navigate to the project's root d
     1. Click the tab on the left column menu called Storage browser
     1. Click on the Blob containers square
     1. Click Add container, type in a name, and click Create
-    1. Click Upload and upload these files:
+    1. Click Upload and upload these files to the newly created container:
         - Individual-Risk-Profile/models/calibXGB.model
         - Individual-Risk-Profile/models/colNamesList.zip
         - Individual-Risk-Profile/models/modelXGBCal.explainer
         - Individual-Risk-Profile/models/modelXGBCalPredProbs.npy
 
+<!-- Skip for now.  We are not deploying a Key Vault in the ARM template -->
 1. Configure Key Vault
   To configure the Key Vault, follow these steps:
 
@@ -41,8 +42,8 @@ To start, clone or download this repository and navigate to the project's root d
     1. Set `abs_acct_name` on line 23 as the name of the storage account in the resource group
     1. Set `abs_container_name` on line 25 as the name of the container the model data is placed in
     1. If using a Key Vault, set `key_vault_name` on line 30 as the name Key Vault in the resource group and set `blob_secret_name` on line 32 as the name of the secret.
-    1. If not using a Key Vault, set `connection_string` on line 49 as the connection string for the storage account in the resource group.
-    1. Make sure all changes have been saved
+    1. If not using a Key Vault, set `connection_string` on line 49 as the connection string for the storage account in the resource group.  This can be found in the Azure portal by going back to the Access Keys page of the Storage account resource. The connection string is in the form of: `DefaultEndpointsProtocol=https;AccountName=<storageAccountName>;AccountKey=<storageAccountKey>;EndpointSuffix=core.windows.net`
+    1. Make sure all changes have been saved (Ctrl+S is the shortcut to save in VS Code)
     1. Click the Azure icon on the left-hand menu in VS Code
     1. Hover over WORKSPACE, and click the cloud icon with an up arrow that appears, then click Deploy to Function App
     1. Select the Subscription and Resource Group the Function App is deployed in, then select that Function App
