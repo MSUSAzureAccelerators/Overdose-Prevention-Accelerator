@@ -1,68 +1,8 @@
 # Deployment Guide
 
-## Step 1. Download Files
-To start, clone or download this repository and navigate to the project's root directory.
+Deployment steps can be found in the README.md file.
 
-## Step 2. Setup Resources
-1. Deploy the resource group: 
-
-      Run using Azure CLI 
-        
-        az group create --name "OOA-rg" --location "westus"
-
-      Use this resource group for all subsequent resources.
-
-1. Deploy the function app to the resource group:
-    - The function app is contained in this folder "OOA Function App"
-    - You can follow the instructions here for deploying a function app to Azure from VS Code: https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code?tabs=python#quick-function-app-create
-
-1. Upload data to the function app:
-  To upload the data used for the solution, follow these steps:
-
-    1. Open the Data Lake (called `ooadatastore` in this deployment package)
-    1. Click the tab on the left column menu called Storage browser
-    1. Click on the Blob containers square
-    1. Click Add container, type in a name, and click Create
-    1. Click Upload and upload these files:
-        - Individual-Risk-Profile/models/calibXGB.model
-        - Individual-Risk-Profile/models/colNamesList.zip
-        - Individual-Risk-Profile/models/modelXGBCal.explainer
-        - Individual-Risk-Profile/models/modelXGBCalPredProbs.npy
-
-1. Configure Key Vault
-  To configure the Key Vault, follow these steps:
-
-    1. In the Data Lake (called `ooadatastore` in this deployment package), click the tab on the left column menu called Access keys
-    1. Click the Show button next to the Key value for key1, and copy that value
-    1. Open the Key Vault (called `ooavault` in this deployment package)
-    1. Click the tab on the let column menu called Secrets
-    1. Click Generate/Import Secret
-    1. Enter a Name for the secret (called `ooadatastoresecret` in this deployment package) and enter the copied key in the Value field, then click Create
-
-
-1. Configure the Front End Web App for connecting to the function app
-
-    To ensure the Web App can connect to the Function App in this solution, follow these steps:
-
-      1. Open the Function App (called `ooamodelling` in this deployment package)
-      1. Click the tab on the left column menu called App Keys
-      1. Click the eye icon next to the `default` key to display the value; copy that value
-      1. Add that token, and URL to the file "Overdose-Accelerator-Web\appsettings.json" under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
-      1. Commit and push the changes to your repo
-      
-
-1. Deploy the frontend app:
-
-      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2Fmain.json)
-
-    Note - Whenever the .bicep files are modified, the main.json file needs to be updated by running: 
-    
-    `az bicep build --file main.bicep --outdir .`
-
-    *(The Deploy to Azure button does not yet support .bicep files)*
-
-# Congratulations
-You have completed this solution accelerator and should now have a report to explore the personalized recommendations:
+Below are some additional commands you can use to deploy your project.
 
 # Other resources
 
