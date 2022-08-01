@@ -57,13 +57,38 @@ To start, clone or download this repository and navigate to the project's root d
       1. Click the tab on the left column menu called App Keys
       1. Click the eye icon next to the `default` key to display the value; copy that value
       1. Add that token, and URL to the file "Overdose-Accelerator-Web\appsettings.json" under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
-      1. Commit and push the changes to your repository
+
+1. Update the Deploy to Azure button to deploy from your cloned repository
+    1. Ensure your Github repo is public
+    1. Update the url for the Deploy Button to point to your cloned repository by following these steps
+      1. Update the "repoURL" param in the file "dotnetApp.bicep" file to point to your Github repository
+      1. Build the bicep file by running: 
+      `az bicep build --file dotnetApp.bicep --outdir .`
+      1. The previous command updates the file dotnetApp.json, which is used by the Deploy to Azure button in the next step.  
+      1. Update the Deploy to Azure button by changing the url to point to the `dotnetApp.json` file.  The current value of the string is `<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>`.
+      
+      #### To generate the new string:  
+        1. Navigate to the `dotnetApp.json` file in your cloned repository  
+        1. Retrieve the URL by selecting 'Raw' and copying the url from your browser's address bar.  
+        1. The format of the URL is: `https://raw.githubusercontent.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator/main/dotnetApp.json`
+        1. Encode the URL by using the powershell script:
+        
+```powershell
+$url = "https://raw.githubusercontent.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator/main/dotnetApp.json"
+[uri]::EscapeDataString($url)
+```
+
+        1. Copy the output.  It will have replaced the url with a string that can be used in the Deploy to Azure button. 
+        1. Edit this file (README.md) and replace the string `<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>` with the encoded URL
+        1. Commit and push your changes to Github
+        1. Continue to the next step by clicking the Deploy to Azure button
+
 
 1. Deploy the frontend app:
 
     When prompted for a resource group, select the resource group you created in the first step.
 
-      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https%3A%2F%2Fraw.githubusercontent.com%2FMSUSSolutionAccelerators%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FdotnetApp.json)
+      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>)
 
     Note - Whenever the .bicep files are modified, the main.json file needs to be updated by running: 
     
