@@ -2,93 +2,96 @@
 
 # Getting Started - Deployment Guide
 
-### Step 1. Download Files
+## Step 1. Download Files
 To start, clone or download this repository and navigate to the project's root directory.
 
-### Step 2. Setup Resources
-1. Deploy the resource group and function app to the resource group:
+## Step 2. Setup Resources
+### Deploy the resource group and function app to the resource group:
 
-      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMSUSSolutionAccelerators%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FfunctionApp.json)
+  [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMSUSSolutionAccelerators%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FfunctionApp.json)
 
-1. Upload data to be used by the function app:
+### Upload data to be used by the function app:
 
   To upload the data used for the solution, follow these steps:
 
-    1. Open the Data Lake (look in the resource group you used during the previous step for a resource with the name 'ooads<uniqueString>')
-    1. Click the tab on the left column menu called Storage browser
-    1. Click on the Blob containers square
-    1. Click Add container, type in a name, and click Create
-    1. Click Upload and upload these files to the newly created container:
-        - Individual-Risk-Profile/models/calibXGB.model
-        - Individual-Risk-Profile/models/colNamesList.zip
-        - Individual-Risk-Profile/models/modelXGBCal.explainer
-        - Individual-Risk-Profile/models/modelXGBCalPredProbs.npy
+  1. Open the Data Lake (look in the resource group you used during the previous step for a resource with the name 'ooads<uniqueString>')
+  1. Click the tab on the left column menu called Storage browser
+  1. Click on the Blob containers square
+  1. Click Add container, type in a name, and click Create
+  1. Click Upload and upload these files to the newly created container:
+      - Individual-Risk-Profile/models/calibXGB.model
+      - Individual-Risk-Profile/models/colNamesList.zip
+      - Individual-Risk-Profile/models/modelXGBCal.explainer
+      - Individual-Risk-Profile/models/modelXGBCalPredProbs.npy
 
 <!-- Skip for now.  We are not deploying a Key Vault in the ARM template -->
-1. Configure Key Vault
+### Configure Key Vault
   To configure the Key Vault, follow these steps:
 
-    1. In the Data Lake (called 'ooads<uniqueString>'), click the tab on the left column menu called Access keys
-    1. Click the Show button next to the Key value for key1, and copy that value
-    1. Open the Key Vault (called 'ooakv<uniqueString>' in this deployment package)
-    1. Click the tab on the let column menu called Secrets
-    1. Click Generate/Import Secret
-    1. Enter a Name for the secret and enter the copied key1 in the Value field, then click Create
+  1. In the Data Lake (called 'ooads<uniqueString>'), click the tab on the left column menu called Access keys
+  1. Click the Show button next to the Key value for key1, and copy that value
+  1. Open the Key Vault (called 'ooakv<uniqueString>' in this deployment package)
+  1. Click the tab on the let column menu called Secrets
+  1. Click Generate/Import Secret
+  1. Enter a Name for the secret and enter the copied key1 in the Value field, then click Create
 
-1. Function App Configuration
+### Function App Configuration
   To ensure the Function App is able to access data and return predictions, follow these steps:
   
-    1. Open the file `OOA-Function-App/ModelIndividualScore/__init__.py` in VS Code
-    1. Set `abs_acct_name` on line 23 as the name of the storage account in the resource group
-    1. Set `abs_container_name` on line 25 as the name of the container the model data is placed in
-    1. If using a Key Vault, set `key_vault_name` on line 30 as the name Key Vault in the resource group and set `blob_secret_name` on line 32 as the name of the secret.
-    1. If not using a Key Vault, set `connection_string` on line 49 as the connection string for the storage account in the resource group.  This can be found in the Azure portal by going back to the Access Keys page of the Storage account resource. The connection string is in the form of: `DefaultEndpointsProtocol=https;AccountName=<storageAccountName>;AccountKey=<storageAccountKey>;EndpointSuffix=core.windows.net`
-    1. Make sure all changes have been saved (Ctrl+S is the shortcut to save in VS Code)
-    1. Click the Azure icon on the left-hand menu in VS Code
-    1. Hover over WORKSPACE, and click the cloud icon with an up arrow that appears, then click Deploy to Function App
-    1. Select the Subscription and Resource Group the Function App is deployed in, then select that Function App
-    1. Click Deploy on the pop-up window that appears; this will deploy the Function App
+  1. Open the file `OOA-Function-App/ModelIndividualScore/__init__.py` in VS Code
+  1. Set `abs_acct_name` on line 23 as the name of the storage account in the resource group
+  1. Set `abs_container_name` on line 25 as the name of the container the model data is placed in
+  1. If using a Key Vault, set `key_vault_name` on line 30 as the name Key Vault in the resource group and set `blob_secret_name` on line 32 as the name of the secret.
+  1. If not using a Key Vault, set `connection_string` on line 49 as the connection string for the storage account in the resource group.  This can be found in the Azure portal by going back to the Access Keys page of the Storage account resource. The connection string is in the form of: `DefaultEndpointsProtocol=https;AccountName=<storageAccountName>;AccountKey=<storageAccountKey>;EndpointSuffix=core.windows.net`
+  1. Make sure all changes have been saved (Ctrl+S is the shortcut to save in VS Code)
+  1. Click the Azure icon on the left-hand menu in VS Code
+  1. Hover over WORKSPACE, and click the cloud icon with an up arrow that appears, then click Deploy to Function App
+  1. Select the Subscription and Resource Group the Function App is deployed in, then select that Function App
+  1. Click Deploy on the pop-up window that appears; this will deploy the Function App
 
-1. Configure the Front End Web App for connecting to the function app
+### Configure the Front End Web App for connecting to the function app
 
-    To ensure the Web App can connect to the Function App in this solution, follow these steps:
+To ensure the Web App can connect to the Function App in this solution, follow these steps:
 
-      1. Open the Function App in the Azure portal (look for the function app in the resource group you created)
-      1. Click the tab on the left column menu called App Keys
-      1. Click the eye icon next to the `default` key to display the value; copy that value
-      1. Add that token, and URL to the file "Overdose-Accelerator-Web\appsettings.json" under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
+  1. Open the Function App in the Azure portal (look for the function app in the resource group you created)
+  1. Click the tab on the left column menu called App Keys
+  1. Click the eye icon next to the `default` key to display the value; copy that value
+  1. Add that token, and URL to the file `Overdose-Accelerator-Web\appsettings.json` under the `WebServiceUrl` section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
 
-1. Update the Deploy to Azure button to deploy from your cloned repository
-    1. Ensure your Github repo is public
-    1. Update the url for the Deploy Button to point to your cloned repository by following these steps
-      1. Update the "repoURL" param in the file "dotnetApp.bicep" file to point to your Github repository
-      1. Build the bicep file by running: 
-      `az bicep build --file dotnetApp.bicep --outdir .`
-      1. The previous command updates the file dotnetApp.json, which is used by the Deploy to Azure button in the next step.  
-      1. Update the Deploy to Azure button by changing the url to point to the `dotnetApp.json` file.  The current value of the string is `<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>`.
-      
-      #### To generate the new string:  
-        1. Navigate to the `dotnetApp.json` file in your cloned repository  
-        1. Retrieve the URL by selecting 'Raw' and copying the url from your browser's address bar.  
-        1. The format of the URL is: `https://raw.githubusercontent.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator/main/dotnetApp.json`
-        1. Encode the URL by using the powershell script:
+### Update the Deploy to Azure button to deploy from your cloned repository
+  
+Ensure your Github repo is public
+
+### Update the url for the Deploy Button to point to your cloned repository by following these steps
+1. Update the `repoURL` param in the file `dotnetApp.bicep` file to point to your Github repository
+1. Build the bicep file by running: 
+`az bicep build --file dotnetApp.bicep --outdir .`
+1. The previous command updates the file dotnetApp.json, which is used by the Deploy to Azure button in the next step.  
+1. Update the Deploy to Azure button by changing the url to point to the `dotnetApp.json` file.  The current value of the string is `<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>`.
+    
+### Generate the new string  
+1. Navigate to the `dotnetApp.json` file in your cloned repository  
+1. Retrieve the URL by selecting 'Raw' and copying the url from your browser's address bar.  
+1. The format of the URL is: `https://raw.githubusercontent.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator/main/dotnetApp.json`
+1. Encode the URL by using the powershell script:
         
 ```powershell
 $url = "https://raw.githubusercontent.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator/main/dotnetApp.json"
 [uri]::EscapeDataString($url)
 ```
 
-        1. Copy the output.  It will have replaced the url with a string that can be used in the Deploy to Azure button. 
-        1. Edit this file (README.md) and replace the string `<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>` with the encoded URL
-        1. Commit and push your changes to Github
-        1. Continue to the next step by clicking the Deploy to Azure button
+### Update the Deploy to Azure button's url
+1. Copy the output.  It will have replaced the url with a string that can be used in the Deploy to Azure button. 
+1. Edit this file (README.md) and replace the string `<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>` with the encoded URL. The result will look like this: `https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMSUSSolutionAccelerators%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FdotnetApp.json`
+1. Commit and push your changes to Github
+1. Continue to the next step by clicking the Deploy to Azure button
 
 
 1. Deploy the frontend app:
 
     When prompted for a resource group, select the resource group you created in the first step.
 
-      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>)
+      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>)
 
     Note - Whenever the .bicep files are modified, the main.json file needs to be updated by running: 
     
