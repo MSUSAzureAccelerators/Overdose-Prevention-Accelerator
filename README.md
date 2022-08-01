@@ -8,10 +8,10 @@ To start, clone or download this repository and navigate to the project's root d
 ### Step 2. Setup Resources
 1. Deploy the resource group and function app to the resource group:: 
 
-      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FfunctionApp.json)
+      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMSUSSolutionAccelerators%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FfunctionApp.json)
 
 1. Deploy the function app to the resource group:
-    - The function app is contained in this folder "OOA Function App"
+    - The function app is contained in this folder "OOA-Function-App"
     - You can follow the instructions here for deploying a function app to Azure from VS Code: https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code?tabs=python#quick-function-app-create
 
 1. Upload data to the function app:
@@ -30,7 +30,7 @@ To start, clone or download this repository and navigate to the project's root d
 1. Configure Key Vault
   To configure the Key Vault, follow these steps:
 
-    1. In the Data Lake, click the tab on the left column menu called Access keys
+    1. In the Data Lake (called 'ooads<uniqueString>'), click the tab on the left column menu called Access keys
     1. Click the Show button next to the Key value for key1, and copy that value
     1. Open the Key Vault (called 'ooakv<uniqueString>' in this deployment package)
     1. Click the tab on the let column menu called Secrets
@@ -51,14 +51,15 @@ To start, clone or download this repository and navigate to the project's root d
     1. Select the Subscription and Resource Group the Function App is deployed in, then select that Function App
     1. Click Deploy on the pop-up window that appears; this will deploy the Function App
 
-1. Function App Configuration
+1. Configure the Front End Web App for connecting to the function app
 
     To ensure the Web App can connect to the Function App in this solution, follow these steps:
 
-      1. Open the Function App (called `ooamodelling` in this deployment package)
+      1. Open the Function App in the Azure portal (look for the function app in the resource group you created)
       1. Click the tab on the left column menu called App Keys
       1. Click the eye icon next to the `default` key to display the value; copy that value
-      1. Add that token, and URL to the appsettings.json file, in the Overdose-Accelerator-Web project, under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
+      1. Add that token, and URL to the file "Overdose-Accelerator-Web\appsettings.json" under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
+      1. Commit and push the changes to your repository
 
 1. Deploy the frontend app:
 
@@ -73,7 +74,7 @@ To start, clone or download this repository and navigate to the project's root d
     *(The Deploy to Azure button does not yet support .bicep files)*
 
 ## Congratulations
-You have completed this solution accelerator and should now have a report to explore the personalized recommendations:
+You have completed this solution accelerator and should now have a report to explore the personalized recommendations.
 
 # Opioid Overdose Accelerator
 

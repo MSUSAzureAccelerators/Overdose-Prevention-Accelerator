@@ -71,7 +71,9 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
     type: 'SystemAssigned'
   }
   dependsOn: [
+#disable-next-line no-unnecessary-dependson
     storageAccount
+#disable-next-line no-unnecessary-dependson
     appServicePlan
   ]
   tags: {
