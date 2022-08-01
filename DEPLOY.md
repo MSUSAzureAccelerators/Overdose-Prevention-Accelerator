@@ -15,7 +15,7 @@ To start, clone or download this repository and navigate to the project's root d
 1. Deploy the function app to the resource group:
     - The function app is contained in this folder "OOA Function App"
     - You can follow the instructions here for deploying a function app to Azure from VS Code: https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code?tabs=python#quick-function-app-create
-
+        
 1. Upload data to the function app:
   To upload the data used for the solution, follow these steps:
 
@@ -47,7 +47,6 @@ To start, clone or download this repository and navigate to the project's root d
       1. Open the Function App (called `ooamodelling` in this deployment package)
       1. Click the tab on the left column menu called App Keys
       1. Click the eye icon next to the `default` key to display the value; copy that value
-      1. Add that token, and URL to the appsettings.json file, in the Overdose-Accelerator-Web project, under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
 
 1. Deploy the frontend app:
 
@@ -58,6 +57,14 @@ To start, clone or download this repository and navigate to the project's root d
     `az bicep build --file main.bicep --outdir .`
 
     *(The Deploy to Azure button does not yet support .bicep files)*
+
+    After the frontend app is deplouyed
+     1. Add the token, and URL to the appsettings.json file, in the Overdose-Accelerator-Web project, under the "WebServiceUrl" section. Include the URL: `\<Function App Name\>.azurewebsites.net/api/\<Function Name\>?code=` and the token in each property, for use in the Web App.
+     1. You can then
+        a. Publish the app with the new appsettings.json file from VS Code
+        b. Or go to the Azure Portal find the web app inside your resource group and open it to view it's overview. 
+            i. Scroll dow on the left hand menue to the Development Tools section and select App Service Editor and directly edit the appsettings.json file. 
+            i. After editing and saveing the file you will need to return to the over view page at the top and restart the front end app.  
 
 # Congratulations
 You have completed this solution accelerator and should now have a report to explore the personalized recommendations:
