@@ -6,7 +6,7 @@
 To start, clone or download this repository and navigate to the project's root directory.
 
 ### Step 2. Setup Resources
-1. Deploy the resource group and function app to the resource group:: 
+1. Deploy the resource group and function app to the resource group:
 
       [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMSUSSolutionAccelerators%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FfunctionApp.json)
 
