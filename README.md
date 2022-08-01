@@ -10,11 +10,8 @@ To start, clone or download this repository and navigate to the project's root d
 
       [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMSUSSolutionAccelerators%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FfunctionApp.json)
 
-1. Deploy the function app to the resource group:
-    - The function app is contained in this folder "OOA-Function-App"
-    - You can follow the instructions here for deploying a function app to Azure from VS Code: https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code?tabs=python#quick-function-app-create
+1. Upload data to be used by the function app:
 
-1. Upload data to the function app:
   To upload the data used for the solution, follow these steps:
 
     1. Open the Data Lake (look in the resource group you used during the previous step for a resource with the name 'ooads<uniqueString>')
