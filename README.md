@@ -73,7 +73,7 @@ Ensure your Github repo is public
 1. Navigate to the `dotnetApp.json` file in your cloned repository  
 1. Retrieve the URL by selecting 'Raw' and copying the url from your browser's address bar.  
 1. The format of the URL is: `https://raw.githubusercontent.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator/main/dotnetApp.json`
-1. Encode the URL by using the powershell script:
+1. Encode the URL by using the powershell script (replace the url with the url you copied from your browser's address bar)):
         
 ```powershell
 $url = "https://raw.githubusercontent.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator/main/dotnetApp.json"
