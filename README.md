@@ -3,10 +3,14 @@
 # Getting Started - Deployment Guide
 
 ## Step 1. Download Files
-To start, clone or download this repository and navigate to the project's root directory.
+To start, fork and clone this repository to your local machine. Then navigate to the project's root directory.
 
 ## Step 2. Setup Resources
 ### Deploy the resource group and function app to the resource group:
+
+  Use the resource group you select or create for all resources in this deployment.  And example name would be "<your-name>-OOA-rg".
+
+  If prompted, select Python 3.9 as the runtime.
 
   [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMSUSSolutionAccelerators%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FfunctionApp.json)
 
@@ -25,7 +29,11 @@ To start, clone or download this repository and navigate to the project's root d
       - Individual-Risk-Profile/models/modelXGBCalPredProbs.npy
 
 <!-- Skip for now.  We are not deploying a Key Vault in the ARM template -->
-### Configure Key Vault
+### Configure Key Vault (optional)
+  For first time deployment, skip this step and continue with the next section: **Function App Configuration**.
+  
+  This is an optional step.  If you want to use a key vault, you will need to deploy one yourself, as it is notcurrently deployed as part of the initial template.
+
   To configure the Key Vault, follow these steps:
 
   1. In the Data Lake (called 'ooads<uniqueString>'), click the tab on the left column menu called Access keys
