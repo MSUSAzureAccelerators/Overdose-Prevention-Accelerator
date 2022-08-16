@@ -103,12 +103,12 @@ $url = "<Replace this with your forked repo's dotnetApp.json raw URL>"
 ```
 
 Example:
-A forked repo's dotnetApp.json file url might look like: `https://raw.githubusercontent.com/nsmaassel/Overdose-Prevention-Solution-Accelerator/main/dotnetApp.json`
+A forked repo's dotnetApp.json file url might look like: `https://raw.githubusercontent.com/nsmaassel/Overdose-Prevention-Solution-Accelerator/deploy/dotnetApp.json`
 
 Then you'd run the command:
 
 ```powershell
-$url = "https://raw.githubusercontent.com/nsmaassel/Overdose-Prevention-Solution-Accelerator/main/dotnetApp.json"
+$url = "https://raw.githubusercontent.com/nsmaassel/Overdose-Prevention-Solution-Accelerator/deploy/dotnetApp.json"
 [uri]::EscapeDataString($url)
 ```
 
@@ -118,7 +118,7 @@ You'd then use that encoded url in the Deploy to Azure button in the next step.
 
 ### Update the Deploy to Azure button's url
 1. Copy the output.  It will have replaced the url with a string that can be used in the Deploy to Azure button. 
-1. Edit this file (README.md) and replace the string `<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>` with the encoded URL. The result will look like this: `https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMSUSSolutionAccelerators%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FdotnetApp.json`
+1. Edit this file (README.md) and replace the string `<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>` with the encoded URL. The result will look like this: `https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMSUSSolutionAccelerators%2FOverdose-Prevention-Solution-Accelerator%2Fdeploy%2FdotnetApp.json`
 1. Commit and push your changes to Github
 1. Continue to the next step by clicking the Deploy to Azure button
 
@@ -126,7 +126,7 @@ You'd then use that encoded url in the Deploy to Azure button in the next step.
 1. Deploy the frontend app. When prompted for a resource group, select the resource group you created in the first step:
 
 <!-- Sample deployment: -->
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FdotnetApp.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fdeploy%2FdotnetApp.json)
 
 <!-- [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>) -->
 
