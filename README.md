@@ -123,20 +123,18 @@ You'd then use that encoded url in the Deploy to Azure button in the next step.
 1. Continue to the next step by clicking the Deploy to Azure button
 
 
-1. Deploy the frontend app:
+1. Deploy the frontend app. When prompted for a resource group, select the resource group you created in the first step:
 
-    When prompted for a resource group, select the resource group you created in the first step.
+<!-- Sample deployment: -->
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FdotnetApp.json)
 
-<!-- Sample deployment:
-      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FdotnetApp.json)
- -->
-      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>)
+<!-- [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>) -->
 
-    Note - Whenever the .bicep files are modified, the main.json file needs to be updated by running: 
+  Note - Whenever the .bicep files are modified, the main.json file needs to be updated by running: 
     
     `az bicep build --file dotnetApp.bicep --outdir .`
 
-    *(The Deploy to Azure button does not yet support .bicep files)*
+  *(The Deploy to Azure button does not yet support .bicep files)*
 
 ## Congratulations
 You have completed this solution accelerator and should now have a report to explore the personalized recommendations.
