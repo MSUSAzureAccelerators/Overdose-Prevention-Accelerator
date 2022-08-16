@@ -2,6 +2,20 @@
 
 # Getting Started - Deployment Guide
 
+## Prerequisites
+To use this Solution Accelerator, you will need access to and/or provision the following applications:
+1. Access to an Azure Subscription
+1. Visual Studio Code
+1. Azure Bicep CLI (https://docs.microsoft.com/en-us/azure/bicep/bicep-cli-install)
+
+A working knowledge of Azure, Azure Storage Accounts, Azure Functions, will also be helpful. To learn more about these services, please visit:
+1. Azure
+1. Azure Storage Accounts
+1. Azure Functions
+1. Azure App Services
+
+For users who wish to select features and adjust the model in the cloud, a working knowledge of Azure Databricks would be helpful.
+
 ## Step 1. Download Files
 To start, fork and clone this repository to your local machine. Then navigate to the project's root directory.
 
@@ -84,9 +98,23 @@ Ensure your Github repo is public
 1. Encode the URL by using the powershell script (replace the url with the url you copied from your browser's address bar)):
         
 ```powershell
-$url = "https://raw.githubusercontent.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator/main/dotnetApp.json"
+$url = "<Replace this with your forked repo's dotnetApp.json raw URL>"
 [uri]::EscapeDataString($url)
 ```
+
+Example:
+A forked repo's dotnetApp.json file url might look like: `https://raw.githubusercontent.com/nsmaassel/Overdose-Prevention-Solution-Accelerator/main/dotnetApp.json`
+
+Then you'd run the command:
+
+```powershell
+$url = "https://raw.githubusercontent.com/nsmaassel/Overdose-Prevention-Solution-Accelerator/main/dotnetApp.json"
+[uri]::EscapeDataString($url)
+```
+
+It would give this encoded url as its output: `https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FdotnetApp.json`
+
+You'd then use that encoded url in the Deploy to Azure button in the next step.
 
 ### Update the Deploy to Azure button's url
 1. Copy the output.  It will have replaced the url with a string that can be used in the Deploy to Azure button. 
@@ -99,6 +127,9 @@ $url = "https://raw.githubusercontent.com/MSUSSolutionAccelerators/Overdose-Prev
 
     When prompted for a resource group, select the resource group you created in the first step.
 
+<!-- Sample deployment:
+      [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fmain%2FdotnetApp.json)
+ -->
       [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>)
 
     Note - Whenever the .bicep files are modified, the main.json file needs to be updated by running: 
@@ -126,22 +157,7 @@ The architecture diagram below details what will be built with this Solution Acc
 
 ![](assets/architecture_diagram.png)
 
-## Prerequisites
-To use this Solution Accelerator, you will need access to and/or provision the following applications:
-1. Access to an Azure Subscription
-1. Visual Studio
-1. Visual Studio Code 
-
-A working knowledge of Azure, Azure Storage Accounts, Azure Functions, will also be helpful. To learn more about these services, please visit:
-1. Azure
-1. Azure Storage Accounts
-1. Azure Functions
-1. Azure App Services
-
-For users who wish to select features and adjust the model in the cloud, a working knowledge of Azure Databricks would be helpful.
-
-## Getting Started
-
+# Getting started with the data model
 
 ## Individual Risk Score Model
 The Individual Risk Score model generates the probability that an individual will overdose on opioids within the next year and the percentile of the population their overdose risk falls in.

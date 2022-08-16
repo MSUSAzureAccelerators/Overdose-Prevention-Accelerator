@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.8.9.13224",
-      "templateHash": "17386877393137462727"
+      "templateHash": "3705788639384057591"
     }
   },
   "parameters": {
@@ -39,14 +39,14 @@
     },
     "repoURL": {
       "type": "string",
-      "defaultValue": "https://github.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator.git",
+      "defaultValue": "https://github.com/nsmaassel/Overdose-Prevention-Solution-Accelerator.git",
       "metadata": {
         "description": "The URL for the GitHub repository that contains the project to deploy."
       }
     },
     "branch": {
       "type": "string",
-      "defaultValue": "main",
+      "defaultValue": "deploy",
       "metadata": {
         "description": "The branch of the GitHub repository to use."
       }
