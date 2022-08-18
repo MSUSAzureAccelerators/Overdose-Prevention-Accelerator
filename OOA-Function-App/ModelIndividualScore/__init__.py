@@ -20,9 +20,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
     # Parameters/Configurations
-    abs_acct_name='<INSERT STORAGE ACCOUNT NAME>'
+    abs_acct_name='ooadsme4h6bmdsc3om'
     abs_acct_url=f'https://{abs_acct_name}.blob.core.windows.net/'
-    abs_container_name='<INSERT CONTAINER NAME>'
+    abs_container_name='ooa-container'
 
     try:
         # Access Credential Via Key Vault
@@ -43,21 +43,24 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             )
 
             abs_container_client = abs_service_client.get_container_client(container=abs_container_name)
+            logging.info(f'Successfully used Key Vault to retrieve access key for Azure Storage Blob Service.')
         
         # Input Connection String Manually
         except:
-            connection_string = '<INSERT STORAGE ACCOUNT CONNECTION STRING>'
+            logging.info(f'Could not connect to key vault. Using connection string instead.')
+            connection_string = 'DefaultEndpointsProtocol=https;AccountName=ooadsme4h6bmdsc3om;AccountKey=Ox6jZKMkTL9eyuYyyLgh5RaVEjxhIYASzidjx4gAbvXEJ7CCzJI3KB9BYubxiKbeapjSTR37N9xK+AStJxskdg==;EndpointSuffix=core.windows.net'
             blob_service_client = BlobServiceClient.from_connection_string(connection_string)
-            abs_container_client = blob_service_client.get_container_client('<INSERT CONTAINER NAME>')
+            abs_container_client = blob_service_client.get_container_client(abs_container_name)
 
     except Exception as e:
-        logging.info(e)
+        logging.error(f'Could not connect to Azure Storage Blob Service. Error: {e}')
         return func.HttpResponse(
                 f"!! This HTTP triggered function executed unsuccessfully. \n\t {e} ",
                 status_code=200
             )
 
     req = req.get_json()
+    logging.info(f'Request: {req}')
     df = pd.DataFrame([req])
     df = df.rename(columns={'Education': 'EDUHIGHCAT', 'Age': 'AGE2', 'Gender': 'IRSEX', 'AgeFirstAlcohol': 'IRALCAGE', 'RecentAlcohol': 'IRALCRC',
     'DaysAlcoholUseYear': 'IRALCFY', 'MoreDrinks': 'CABINGEVR', 'HadTreatmentPastYear': 'TXYRRECVD2', 'HadTreatment': 'TXEVRRCVD2', 'RecentCigarettes': 'IRCIGRC', 'AgeFirstDailySmoke': 'CIGAGE',
