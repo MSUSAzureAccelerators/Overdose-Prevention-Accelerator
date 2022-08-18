@@ -86,7 +86,6 @@ resource appServiceLogging 'Microsoft.Web/sites/config@2021-03-01' = {
   }
   dependsOn: [
     appServiceSiteExtension
-    appSource
   ]
 }
 
