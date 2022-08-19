@@ -8,7 +8,7 @@ To use this Solution Accelerator, you will need access to and/or provision the f
 
 1. Access to an Azure Subscription
 1. Visual Studio Code
-1. Azure Bicep CLI (<https://docs.microsoft.com/en-us/azure/bicep/bicep-cli-install>)
+1. VS Code Bicep Extension (<https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-bicep>)
 
 A working knowledge of Azure, Azure Storage Accounts, Azure Functions, will also be helpful. To learn more about these services, please visit:
 
