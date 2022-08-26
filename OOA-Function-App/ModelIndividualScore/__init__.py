@@ -43,15 +43,17 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             )
 
             abs_container_client = abs_service_client.get_container_client(container=abs_container_name)
+            logging.info(f'Successfully used Key Vault to retrieve access key for Azure Storage Blob Service.')
         
         # Input Connection String Manually
         except:
+            logging.info(f'Could not connect to key vault. Using connection string instead.')
             connection_string = '<INSERT STORAGE ACCOUNT CONNECTION STRING>'
             blob_service_client = BlobServiceClient.from_connection_string(connection_string)
-            abs_container_client = blob_service_client.get_container_client('<INSERT CONTAINER NAME>')
+            abs_container_client = blob_service_client.get_container_client(abs_container_name)
 
     except Exception as e:
-        logging.info(e)
+        logging.error(f'Could not connect to Azure Storage Blob Service. Error: {e}')
         return func.HttpResponse(
                 f"!! This HTTP triggered function executed unsuccessfully. \n\t {e} ",
                 status_code=200
