@@ -87,7 +87,7 @@ To ensure the Web App can connect to the Function App in this solution, follow t
   1. Click on the function named 'ModelIndividualScore'
   1. Click the button up top called 'Get Function Url'
   1. Copy the URL to the clipboard
-  1. Add that URL to the file `Overdose-Accelerator-Web\appsettings.json` under the `WebServiceUrl` section. This is the URL that the Web App will use to connect to the Function App.
+  1. Add that URL to the file `Overdose-Accelerator-Web\appsettings.json` under the `WebServiceUrl` section. This is the URL that the Web App will use to connect to the Function App.  The result will look like this: ![](20220826131053.png)  
 
 ### Front end web app configuration
   
