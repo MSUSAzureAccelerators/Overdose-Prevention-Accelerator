@@ -1,3 +1,8 @@
+// References:
+// https://github.com/Azure/azure-quickstart-templates/blob/master/quickstarts/microsoft.web/web-app-loganalytics/main.bicep
+
+// Kudu: https://docs.microsoft.com/en-us/azure/app-service/resources-kudu
+
 @description('Name that will be used to build associated artifacts')
 param appName string = 'OOA-${uniqueString(resourceGroup().id)}'
 
@@ -11,14 +16,10 @@ param skuName string = 'S1'
 param skuCapacity int = 1
 
 @description('The URL for the GitHub repository that contains the project to deploy.')
-// param repoURL string = 'https://github.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator.git'
-// Sample deployment from a forked repo
-param repoURL string = 'https://github.com/nsmaassel/Overdose-Prevention-Solution-Accelerator.git'
+param repoURL string = 'https://github.com/MSUSSolutionAccelerators/Overdose-Prevention-Solution-Accelerator.git'
 
 @description('The branch of the GitHub repository to use.')
-// param branch string = 'main'
-// Sample deployment from a branch named 'deploy'
-param branch string = 'deploy'
+param branch string = 'main'
 
 var appServicePlanName = 'asp-${appName}'
 var webSiteName = toLower('wapp-${appName}')

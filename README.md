@@ -137,10 +137,7 @@ You'd then use that encoded url in the Deploy to Azure button in the next step.
 
 1. Deploy the frontend app. When prompted for a resource group, select the resource group you created in the first step:
 
-<!-- Sample deployment: -->
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnsmaassel%2FOverdose-Prevention-Solution-Accelerator%2Fdeploy%2FdotnetApp.json)
-
-<!-- [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>) -->
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/<URL_ENCODED_STRING_TO_DOTNETAPP_JSON>)
 
   Note - Whenever the .bicep files are modified, the main.json file needs to be updated by running:
 
