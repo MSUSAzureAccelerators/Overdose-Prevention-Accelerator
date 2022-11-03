@@ -1,10 +1,10 @@
 ![MSUS Solution Accelerator](./images/MSUS%20Solution%20Accelerator%20Banner%20Two_981.png)
 
-# Getting Started - Deployment Guide
+# Overdose Prevention Accelerator
 
 ## Prerequisites
 
-To use this Solution Accelerator, you will need access to and/or provision the following applications:
+To use this Accelerator, you will need access to and/or provision the following applications:
 
 1. Access to an Azure Subscription
 1. Visual Studio Code
