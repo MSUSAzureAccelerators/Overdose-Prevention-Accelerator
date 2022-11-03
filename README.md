@@ -35,7 +35,7 @@ To start, fork this repository and clone it to your local machine. You will be m
 
 ### Upload data to be used by the function app
 
-  To upload the data used for the solution, follow these steps:
+  To upload the data used for the accelerator, follow these steps:
 
   1. Open the Data Lake (look in the resource group you used during the previous step for a resource with the name 'ooads{uniqueString}')
   1. Click the tab on the left column menu called Storage browser
@@ -87,7 +87,7 @@ To ensure the Web App can connect to the Function App in this solution, follow t
   1. Click on the function named 'ModelIndividualScore'
   1. Click the button up top called 'Get Function Url'
   1. Copy the URL to the clipboard
-  1. Add that URL to the file `Overdose-Accelerator-Web\appsettings.json` under the `WebServiceUrl` section. This is the URL that the Web App will use to connect to the Function App.  The result will look like this: ![](20220826131053.png)  
+  1. Add that URL to the file `Overdose-Accelerator-Web\appsettings.json` under the `WebServiceUrl` section. This is the URL that the Web App will use to connect to the Function App. The result will look like this: ![](20220826131053.png)  
 
 ### Front end web app configuration
   
@@ -95,7 +95,7 @@ Ensure your Github repo is public
 
 ### Update the url for the Deploy Button to point to your forked repository
 
-1. Update the `repoURL` param in the file `dotnetApp.bicep` file to point to your Github repository.  You can get the url for the repo by clicking the Code drop down on the main page of the Github repository.  
+1. Update the `repoURL` param in the file `dotnetApp.bicep` file to point to your Github repository. You can get the url for the repo by clicking the Code drop down on the main page of the Github repository.  
 ![The repo's url in Github](20220818111923.png)  
 1. Build the bicep file by opening the terminal in VS Code and running:
 `az bicep build --file dotnetApp.bicep --outdir .`
@@ -145,23 +145,23 @@ You'd then use that encoded url in the Deploy to Azure button in the next step.
 
 ## Congratulations
 
-You have completed this solution accelerator and should now have a report to explore the personalized recommendations.
+You have completed this accelerator and should now have a report to explore the personalized recommendations.
 
 # Opioid Overdose Accelerator
 
 ## About This Repository
 
-The Opioid Overdose Solution Accelerator is an end-to-end solution that provides a risk score that a patient will overdose on opioids in the next year that medical providers can take into account when making clinical decisions and an overview of opioid overdoses at the community level.
+The Opioid Overdose Accelerator is an end-to-end solution that provides a risk score that a patient will overdose on opioids in the next year that medical providers can take into account when making clinical decisions and an overview of opioid overdoses at the community level.
 
 The individual risk score tool allows for medical providers to input a set of demographic and medical data for an individual patient, which will return the risk score for an individual overdosing on opioids in the next year, along with the percentile of that risk score. It will also return the 5 features that are most likely to increase an individual's risk of overdosing on opioids. This information is only meant to be used in conjunction with other aspects of a patient's medical history and should not be used as the sole factor in deciding whether or not to prescribe opioids.
 
 The community level map allows for interested community members to map the number of opioid overdoses in a certain area as well as the concentration of schools, clinics, hospitals, social facilities, fire stations, police stations, and libraries. The example geography used in the community level map is King County, WA at the ZIP Code level.
 
-Users of this Solution Accelerator will be able to customize both the patient charesteristics for the individual risk score module and the geographic features & community institutions for the map view.
+Users of this accelerator will be able to customize both the patient characteristics for the individual risk score module and the geographic features & community institutions for the map view.
 
 ## Architecture Overview
 
-The architecture diagram below details what will be built with this Solution Accelerator.
+The architecture diagram below details what will be built with this accelerator.
 
 ![Architecture Diagram](assets/architecture_diagram.png)
 
@@ -175,7 +175,7 @@ The Individual Risk Score model generates the probability that an individual wil
 
 The features for the Individual Risk Score Model come from the National Survey on Drug Use and Health (NSDUH). The survey includes over 2,000 features selected from around 30,000 participants each year. A full list of features can be found in the NSDUH Codebook.
 
-For this Solution Accelerator, 27 features were used, relating to demographics, substance use, and mental health. The features are split into 5 categories, as detailed below:
+For this accelerator, 27 features were used, relating to demographics, substance use, and mental health. The features are split into 5 categories, as detailed below:
 
 #### Section 1: Personal Info
 
@@ -233,7 +233,7 @@ The target variable `MISUSE` was coded from values of the survey code `PNRNMREC`
 
 ### Model
 
-The model that was selected for the implementation of this Solution Accelerator is a calibrated Extreme Gradient Boosting (XGBoost) model. The hyperparameters of the model are as follows:
+The model that was selected for the implementation of this accelerator is a calibrated Extreme Gradient Boosting (XGBoost) model. The hyperparameters of the model are as follows:
 
 | Hyperparameter | Value |
 | --- | --- |
@@ -252,9 +252,9 @@ The inputs are then run against the model, and the risk probability, percentile,
 
 The Community Rate Visualization allows for interested community members to view the number of opioid overdoses in geographic regions (in this example, ZIP Codes in King County, WA) and the location of community institutions to see if the locations of these institution correlate with a higher or lower overdose rate.
 
-For this Solution Accelerator, the number of overdoses in each ZIP Code in King County was imputed based on the number of fatal overdoses in a ZIP Code. Comparing the number of fatal and non-fatal opioid overdoses showed that around 12.50% of opioid overdoses were fatal, so the total number of overdoses was imputed by taking the number of fatal overdoses and dividing them by 0.1250. The number of overdoses were then added to as properties of GeoJSON files containing all ZIP Codes within King County.
+For this accelerator, the number of overdoses in each ZIP Code in King County was inputed based on the number of fatal overdoses in a ZIP Code. Comparing the number of fatal and non-fatal opioid overdoses showed that around 12.50% of opioid overdoses were fatal, so the total number of overdoses was inputed by taking the number of fatal overdoses and dividing them by 0.1250. The number of overdoses were then added to as properties of GeoJSON files containing all ZIP Codes within King County.
 
-The community institutions were pulled from, and cached on the Web App server from the OpenStreetMap API. The community institutions chosed for this Solution Accelerator are schools, clinics, hospitals, social facilities, fire stations, police stations, and libraries.
+The community institutions were pulled from, and cached on the Web App server from the OpenStreetMap API. The community institutions chosed for this accelerator are schools, clinics, hospitals, social facilities, fire stations, police stations, and libraries.
 
 The overdose data, geographies, and categories of community institutions can be modified to allow for users to customize the data displayed to their specific needs.
 
