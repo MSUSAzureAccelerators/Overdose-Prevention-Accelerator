@@ -147,9 +147,8 @@ You'd then use that encoded url in the Deploy to Azure button in the next step.
 
 You have completed this accelerator and should now have a report to explore the personalized recommendations.
 
-# Opioid Overdose Accelerator
 
-## About This Repository
+# Opioid Overdose Accelerator
 
 The Opioid Overdose Accelerator is an end-to-end solution that provides a risk score that a patient will overdose on opioids in the next year that medical providers can take into account when making clinical decisions and an overview of opioid overdoses at the community level.
 
