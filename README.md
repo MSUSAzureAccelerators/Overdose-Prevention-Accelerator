@@ -12,10 +12,10 @@ To use this Accelerator, you will need access to and/or provision the following 
 
 A working knowledge of Azure, Azure Storage Accounts, Azure Functions, will also be helpful. To learn more about these services, please visit:
 
-1. Azure
-1. Azure Storage Accounts
-1. Azure Functions
-1. Azure App Services
+1. [Azure](https://azure.microsoft.com/en-us/)
+1. [Azure Storage Accounts](https://azure.microsoft.com/en-us/products/category/storage/)
+1. [Azure Functions](https://azure.microsoft.com/en-us/products/functions/)
+1. [Azure App Services](https://azure.microsoft.com/en-us/products/app-service/)
 
 For users who wish to select features and adjust the model in the cloud, a working knowledge of Azure Databricks would be helpful.
 
