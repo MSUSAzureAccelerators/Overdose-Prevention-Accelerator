@@ -159,12 +159,6 @@ The community level map allows for interested community members to map the numbe
 
 Users of this accelerator will be able to customize both the patient characteristics for the individual risk score module and the geographic features & community institutions for the map view.
 
-## Architecture Overview
-
-The architecture diagram below details what will be built with this accelerator.
-
-![Architecture Diagram](assets/architecture_diagram.png)
-
 # Getting started with the data model
 
 ## Individual Risk Score Model
