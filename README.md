@@ -244,7 +244,7 @@ The model that was selected for the implementation of this accelerator is a cali
 
 ### Function App
 
-When users of the Individual Risk Score Model Web App submit their inputs to be modelled, those inputs are sent to the Function App as an HTTP POST method over its API. There, the incoming JSON is converted to a Pandas DataFrame, and inputs values are adjusted to align with the same values as in the NSDUH training data. For example, the values for Days Using Alcohol in the Past Year differ based on if a respondant has never drank alcohol or has not drank alcohol in the past year.
+When users of the Individual Risk Score Model Web App submit their inputs to be modeled, those inputs are sent to the Function App as an HTTP POST method over its API. There, the incoming JSON is converted to a Pandas DataFrame, and inputs values are adjusted to align with the same values as in the NSDUH training data. For example, the values for Days Using Alcohol in the Past Year differ based on if a respondant has never drank alcohol or has not drank alcohol in the past year.
 
 The inputs are then run against the model, and the risk probability, percentile, and features with SHAP values are returned. These are then combined into a JSON object, which is sent back to the Web App.
 
@@ -259,7 +259,6 @@ The community institutions were pulled from, and cached on the Web App server fr
 The overdose data, geographies, and categories of community institutions can be modified to allow for users to customize the data displayed to their specific needs.
 
 ## License
-
 Copyright (c) Microsoft Corporation
 
 All rights reserved.
@@ -272,11 +271,12 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit <https://cla.opensource.microsoft.com>.
+the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
 
 When you submit a pull request, a CLA bot will automatically determine whether you need to provide
 a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
@@ -288,8 +288,7 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ## Trademarks
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
-trademarks or logos is subject to and must follow
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow 
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
